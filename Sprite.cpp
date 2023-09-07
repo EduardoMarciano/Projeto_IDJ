@@ -1,4 +1,7 @@
 #include "Sprite.h"
+#include <iostream>
+#include <SDL_image.h>
+#include "Game.h"
 
 Sprite::Sprite() : texture(nullptr) {
 
@@ -15,7 +18,7 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Open() {
+void Sprite::Open(const std::string& file) {
     if(texture != nullptr){
         SDL_DestroyTexture(texture);
     }
@@ -42,14 +45,16 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 void Sprite::Render(int x, int y) {
 
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
+    
+    SDL_Rect* srcrect;
+    SDL_Rect* dstrect;
 
-    SDL_Rect dstrect;
-    dstrect.x = x;
-    dstrect.y = y;
-    dstrect.w = clipRect.w;
-    dstrect.h = clipRect.h;
+    dstrect->x = x;
+    dstrect->y = y;
+    dstrect->w = clipRect.w;
+    dstrect->h = clipRect.h;
 
-    SDL_RenderCopy(SDL_Renderer* render, SDL_Texture* texture, SDL_Rect* srcrect, SDL_Rect* dstrect);
+    SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 }
 
 int Sprite::GetWidth() {
@@ -61,7 +66,9 @@ int Sprite::GetHeight() {
 }
 
 bool Sprite::IsOpen() {
-    if(SDL_Texture* != nullptr){
+    if(texture != nullptr){
         return true;
+    }else{
+        return false;
     }
 }

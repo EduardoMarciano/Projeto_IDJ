@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <string>
-#include <SDL.h>      
 #include "State.h"
-#include <iostream>
+
+#include <SDL.h>
+
+#include <string>
 
 class Game {
 public: 

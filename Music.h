@@ -2,8 +2,7 @@
 #define MUSIC_H
 
 #include <string>
-#include <SDL.h>
-#include <SDL_mixer.h>          
+#include <SDL_mixer.h>
 
 class Music {
 public:

@@ -1,11 +1,11 @@
 CC = g++
-CFLAGS = -I/usr/include/SDL2
+CFLAGS = -std=c++11 -I/usr/include/SDL2
 LIBS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 TARGET = Game
-SRC = Game.cpp
+SRCS = Game.cpp State.cpp Sprite.cpp Music.cpp
 
-$(TARGET): $(SRC)
-	$(CC) -o $@ $< $(CFLAGS) $(LIBS)
+$(TARGET): $(SRCS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 clean:
 	rm -f $(TARGET)
