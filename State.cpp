@@ -13,9 +13,11 @@ void State::LoadAssets() {
 }
 
 void State::Update(float dt) {
-
+    if (SDL_QuitRequested()) {
+        quitRequested = true;
+    }
 }
 
 void State::Render() {
-
+    bg.Render(0, 0);
 }

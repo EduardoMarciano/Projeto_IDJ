@@ -3,7 +3,8 @@
 
 #include <string>
 #include <SDL.h>      
-#include "State.h"       
+#include "State.h"
+#include <iostream>
 
 class Game {
 public: 
@@ -11,6 +12,8 @@ public:
     ~Game();
     // Função
     void Run();
+    void CleanupSDL();
+    void InitializeSDL();
     // Retorno de referênicas
     SDL_Renderer* GetRenderer();
     State& GetState();

@@ -12,7 +12,7 @@ Game::Game(const std::string& title, int width, int height) {
         instance = this;
     }
     //Inicializa todas as dependências vinculadas a SDL
-    InitializeSDL()
+    InitializeSDL();
 
     //Criando e renderizando Janela
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
@@ -34,14 +34,13 @@ Game::~Game() {
 }
 
 void Game::Run() {
-    while (!state.QuitRequested()) {
-        state.Update(0.033f);
-        state.Render();
+    while (!state->QuitRequested()) {
+        state->Update(0.033f);
+        state->Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(33);
     }
 }
-
 
 SDL_Renderer* Game::GetRenderer() {
     return renderer;
@@ -72,7 +71,7 @@ void Game::InitializeSDL() {
     //Inicializando as funcionalidaes da SDL_ Image
     int flagsIMG = IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF);
 
-    if (flagsIMG != (IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF)) {
+    if (flagsIMG == (0)) {
         std::cerr << "Erro ao inicializar a biblioteca SDL_image: " << IMG_GetError() << std::endl;
     }
     //Inicializando as funcionalidades da SDL_Sounds
