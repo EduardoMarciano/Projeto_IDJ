@@ -5,12 +5,10 @@
 #include "Sprite.h"
 #include "Music.h"
 
-
 class State {
 public:
     //Construtor
     State();
-
     // Funções
     bool QuitRequested();
     void LoadAssets();

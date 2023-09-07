@@ -4,34 +4,51 @@ Sprite::Sprite() : texture(nullptr) {
 
 }
 
-Sprite::Sprite(string file) : texture(nullptr) {
-    Open();
+ Sprite::Sprite(const std::string& file): texture(nullptr) {
+    Open(file);
 
 }
 
 Sprite::~Sprite() {
-    if (SDL_Texture* != nullptr){
-        SDL_DestroyTexture(SDL_Texture*);
+    if (texture != nullptr){
+        SDL_DestroyTexture(texture);
     }
 }
 
 void Sprite::Open() {
-    if(SDL_Texture* != nullptr){
-        if (IMG_LoadTexture(SDL_Renderer* renderer, const char* path) == nullptr){
-            std::cerr << "Erro ao abrir textura: " << SDL_GetError() << std::endl;
-        }
-        
-        SDL_QueryTexture(SDL_Texture* texture, nullptr, nullptr, width&, height&);
-        SetClip(x : int, y : int, w : int, h : int);
+    if(texture != nullptr){
+        SDL_DestroyTexture(texture);
     }
+    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+
+    if (texture == nullptr) {
+        std::cerr << "Erro ao carregar textura: " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    int queryResult = SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+
+        
+    SetClip(0, 0, width, height);
 }
 
-void Sprite::SetCplip( int x, int y, int w, int h) {
-    clipRect(x, y, w, h);
-
+void Sprite::SetClip(int x, int y, int w, int h) {
+    clipRect.x = x;
+    clipRect.y = y;
+    clipRect.w = w;
+    clipRect.h = h;
 }
 
-void Sprite::Render() {
+void Sprite::Render(int x, int y) {
+
+    SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
+
+    SDL_Rect dstrect;
+    dstrect.x = x;
+    dstrect.y = y;
+    dstrect.w = clipRect.w;
+    dstrect.h = clipRect.h;
+
     SDL_RenderCopy(SDL_Renderer* render, SDL_Texture* texture, SDL_Rect* srcrect, SDL_Rect* dstrect);
 }
 

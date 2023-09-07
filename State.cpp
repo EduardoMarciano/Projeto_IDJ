@@ -1,15 +1,9 @@
 #include "State.h"
 
-State::State() : quitRequested(false), bg() {
-
-}
-
-bool State::QuitRequested() {
-    return quitRequested;
+State::State() : quitRequested(false){
 }
 
 void State::LoadAssets() {
-
 }
 
 void State::Update(float dt) {
@@ -20,4 +14,8 @@ void State::Update(float dt) {
 
 void State::Render() {
     bg.Render(0, 0);
+}
+
+bool State::QuitRequested() {
+    return quitRequested;
 }

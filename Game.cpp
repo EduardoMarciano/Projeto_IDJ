@@ -14,14 +14,14 @@ Game::Game(const std::string& title, int width, int height) {
     //Inicializa todas as dependências vinculadas a SDL
     InitializeSDL();
 
-    //Criando e renderizando Janela
+    //Criando a janela
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
 
     if (window == nullptr) {
         std::cerr << "Erro ao criar a janela: " << SDL_GetError() << std::endl;
     }
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
+    //Criando o renderizador
     if (renderer == nullptr) {
         std::cerr << "Erro ao criar o renderizador: " << SDL_GetError() << std::endl;
     }
@@ -29,7 +29,7 @@ Game::Game(const std::string& title, int width, int height) {
 }
 
 Game::~Game() {
-    //Limpa a SDL
+    //Limpa a SDL   
     CleanupSDL();
 }
 
@@ -42,14 +42,6 @@ void Game::Run() {
     }
 }
 
-SDL_Renderer* Game::GetRenderer() {
-    return renderer;
-}
-
-State& Game::GetState() {
-    return *state;
-}
-
 Game& Game::GetInstance() {
     if(instance != nullptr){
         return *instance;
@@ -58,6 +50,14 @@ Game& Game::GetInstance() {
         instance = new Game("Teste do Edu, Uma nova jornada em programação", 320, 320);
         return *instance;
     }
+}
+
+State& Game::GetState() {
+    return *state;
+}
+
+SDL_Renderer* Game::GetRenderer() {
+    return renderer;
 }
 
 void Game::InitializeSDL() {
