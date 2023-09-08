@@ -4,8 +4,9 @@
 #include "Game.h"
 
 
-State::State() : quitRequested(false){
+State::State() : quitRequested(false), music("audio/stageState.ogg"){
     bg.Open("img/ocean.jpg");
+    music.Play(-1);
 }
 
 void State::LoadAssets() {

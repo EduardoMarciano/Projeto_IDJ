@@ -6,17 +6,20 @@
 
 class Music {
 public:
-    //Construtor
+    // Construtores e Destrutor
     Music();
-    Music(std::string file);
-    // Funções
+    Music(const std::string& file);
+    ~Music();
+
+    // Métodos públicos
     void Play(int times = -1);
     void Stop(int msToStop = 1500);
-    void Open(std::string file);
-    bool IsOpen();
+    void Open(const std::string& file);
+    bool IsOpen() const;
 
 private:
-    //Ponteiros 
+    // Atributos privados
     Mix_Music* music;
 };
+
 #endif

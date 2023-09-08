@@ -50,7 +50,7 @@ Game& Game::GetInstance() {
         return *instance;
     
     }else{
-        instance = new Game("Teste do Edu, Uma nova jornada em programação", 320, 320);
+        instance = new Game("Eduardo Marciano - 211055227", 1024, 600);
         return *instance;
     }
 }
