@@ -2,9 +2,7 @@
 #define GAME_H
 
 #include "State.h"
-
 #include <SDL.h>
-
 #include <string>
 
 class Game {

@@ -18,7 +18,6 @@ public:
     void Render();
 
 private:
-    //Ponteiros
     Sprite bg;
     Music music;
     bool quitRequested;
