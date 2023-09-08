@@ -5,22 +5,22 @@
       "file": "main.cpp"
     },
     {
-      "directory": "/caminho/para/o/seu/projet/caminho/para/o/seu/projetoo",
+      "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ",
       "command": "g++ -o Game main.cpp Game.cpp State.cpp Sprite.cpp Music.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
       "file": "Game.cpp"
     },
     {
-      "directory": "/caminho/para/o/seu/proj/caminho/para/o/seu/projetoeto",
+      "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ",
       "command": "g++ -o Game main.cpp Game.cpp State.cpp Sprite.cpp Music.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
       "file": "State.cpp"
     },
     {
-      "directory": "/caminho/para/o/seu/pr/caminho/para/o/seu/projetoojeto",
+      "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ",
       "command": "g++ -o Game main.cpp Game.cpp State.cpp Sprite.cpp Music.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
       "file": "Sprite.cpp"
     },
     {
-      "directory": "/caminho/para/o/seu/projet/caminho/para/o/seu/projetoo",
+      "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ",
       "command": "g++ -o Game main.cpp Game.cpp State.cpp Sprite.cpp Music.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
       "file": "Music.cpp"
     }
