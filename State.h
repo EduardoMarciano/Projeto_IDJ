@@ -5,8 +5,6 @@
 #include "Sprite.h"
 #include "Music.h"
 
-
-
 class State {
 public:
     //Construtor
