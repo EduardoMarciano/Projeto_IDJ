@@ -70,3 +70,7 @@ bool Sprite::IsOpen() {
         return false;
     }
 }
+
+bool Sprite::Is( std::string type)  {
+    return type == "Sprite";
+}

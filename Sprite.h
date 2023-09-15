@@ -22,7 +22,7 @@ public:
     //Metodos Herdados de Component
     void Render();
     void Update(float dt);
-    bool Is(std::string& type);
+    bool Is(std::string type);
 
 private:
     // Atributos privados

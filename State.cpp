@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include "Game.h"
 #include "State.h"
+#include "Sound.h"
 #include "Vec2.h"
 #include "Rect.h"
 #include "Face.h"
@@ -86,17 +87,20 @@ void State::Input() {
 }
 
 void State::AddObject(int mouseX, int mouseY) {
-    GameObject go;
-    go.AddComponent(new Sprite(go, "img/penguinface.png"));
-    
-    // Ajuste a posição para centralizar a imagem na posição do mouse
-    int imgWidth = go.GetComponent("Sprite")->GetWidth();
-    int imgHeight = go.GetComponent("Sprite")->GetHeight();
-    go.box.x = mouseX - imgWidth / 2;
-    go.box.y = mouseY - imgHeight / 2;
-    
-    go.AddComponent(new Sound(go));
-    go.AddComponent(new Face(go));
-    
-    objects.emplace_back(std::make_unique<GameObject>(go));
+    std::unique_ptr<GameObject> go(new GameObject());
+    go->box.x = mouseX;
+    go->box.y = mouseY;
+
+    std::unique_ptr<Sprite> sprite(new Sprite("img/penguinface.png", *go));
+    go->AddComponent(std::move(sprite));
+    sprite->Open("img/penguinface.png");
+
+    std::unique_ptr<Sound> sound(new Sound(*go, "audio/boom.wav"));
+    go->AddComponent(std::move(sound));
+    sound->Play(1);
+
+    std::unique_ptr<Face> face(new Face(*go));
+    go->AddComponent(std::move(face));
+
+    objects.emplace_back(std::move(go));
 }
