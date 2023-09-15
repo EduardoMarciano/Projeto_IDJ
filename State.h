@@ -4,6 +4,7 @@
 #include <vector>
 #include "Sprite.h"
 #include "Music.h"
+#include "GameObject.h"
 
 class State {
 public:
@@ -19,6 +20,7 @@ private:
     Sprite bg;
     Music music;
     bool quitRequested;
+    std::vector<GameObject> objects; 
 };
 
 #endif

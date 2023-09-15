@@ -3,9 +3,11 @@
 
 #include <SDL.h>
 #include <string>
+
 class Vec2{
     public:
         float x, y;
+        
     private:
 
 };

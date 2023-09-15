@@ -3,13 +3,11 @@
 #include <SDL_image.h>
 #include "Game.h"
 
-Sprite::Sprite() : texture(nullptr) {
+Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
 
 }
-
- Sprite::Sprite(const std::string& file): texture(nullptr) {
+Sprite::Sprite(const std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
     Open(file);
-
 }
 
 Sprite::~Sprite() {
@@ -42,17 +40,17 @@ void Sprite::SetClip(int x, int y, int w, int h) {
     clipRect.h = h;
 }
 
-void Sprite::Render(int x, int y) {
+void Sprite::Render() {
 
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
     
     SDL_Rect* srcrect;
     SDL_Rect* dstrect;
 
-    dstrect->x = x;
-    dstrect->y = y;
-    dstrect->w = clipRect.w;
-    dstrect->h = clipRect.h;
+    dstrect->x = associated.box.x;
+    dstrect->y = associated.box.y;
+    dstrect->w = associated.box.w;
+    dstrect->h = associated.box.h;
 
     SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 }

@@ -2,16 +2,20 @@
 #define Component_H
 
 #include <SDL.h>
-#include "GameObject.h"
 #include <string>
+#include "GameObject.h"
 
+class Component {
+public:
+    Component(GameObject& associated);
+    virtual ~Component();
 
-class Component{
-    public:
-    Component(GameObject associated);
-        float x, y;
-    private:
+    virtual void Update(float dt);
+    virtual void Render() = 0;
+    virtual bool Is(std::string& type) = 0;
 
+protected:
+    GameObject& associated;
 };
 
 #endif

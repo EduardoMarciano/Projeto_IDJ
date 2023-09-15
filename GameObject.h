@@ -1,30 +1,32 @@
-#ifndef Component_H
-#define Component_H
+#ifndef GameObject_H
+#define GameObject_H
 
 #include <SDL.h>
 #include <string>
-#include "Component.h"
+#include <vector>
+#include "Rect.h"
 
-class GameObject{
-    public:
-        GameObject();
-        ~GameObject();
 
-        //Public Methods
-        void Update(float dt);
-        void Render();
-        bool IsDead();
-        void RequestDelete();
-        void AddComponent(Component *cpt);
-        void RemoveComponent(Component *cpt):
-        Component GetComponent(std::string type);
+class Component;
 
-        Rect box;
-        //Public Atributes
-    private:
-        std::vector <Component*> components;
-        bool isDead;
+class GameObject {
+public:
+    GameObject();
+    ~GameObject();
 
+    // Public Methods
+    void Update(float dt);
+    void Render();
+    bool IsDead();
+    void RequestDelete();
+    void AddComponent(Component* cpt);
+    void RemoveComponent(Component* cpt);
+    Component* GetComponent(std::string type);
+
+    Rect box;
+private:
+    std::vector<Component*> components;
+    bool isDead;
 };
 
 #endif

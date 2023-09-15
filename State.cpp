@@ -4,7 +4,7 @@
 #include "Game.h"
 
 
-State::State() : quitRequested(false), music("audio/stageState.ogg"){
+State:: State() : quitRequested(false), music("audio/stageState.ogg"){
     bg.Open("img/ocean.jpg");
     music.Play(-1);
 }
@@ -19,7 +19,7 @@ void State::Update(float dt) {
 }
 
 void State::Render() {
-    bg.Render(0, 0);
+    bg.Render();
 }
 
 bool State::QuitRequested() {
