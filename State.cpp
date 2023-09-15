@@ -3,8 +3,7 @@
 #include <SDL_image.h>
 #include "Game.h"
 
-
-State:: State() : quitRequested(false), music("audio/stageState.ogg"){
+State:: State(GameObject& bgObject) : quitRequested(false), music("audio/stageState.ogg"), bg(bgObject){
     bg.Open("img/ocean.jpg");
     music.Play(-1);
 }

@@ -8,12 +8,12 @@
 
 class State {
 public:
-    //Construtor
-    State();
+    State(GameObject& bgObject);
+
     // Funções
     bool QuitRequested();
     void LoadAssets();
-    void Update( float dt);
+    void Update(float dt);
     void Render();
 
 private:

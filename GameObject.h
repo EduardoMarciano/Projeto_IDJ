@@ -6,7 +6,6 @@
 #include <vector>
 #include "Rect.h"
 
-
 class Component;
 
 class GameObject {
