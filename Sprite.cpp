@@ -63,6 +63,10 @@ int Sprite::GetHeight() {
     return height;
 }
 
+void Sprite::Update(float teste) {
+    return;
+}
+
 bool Sprite::IsOpen() {
     if(texture != nullptr){
         return true;

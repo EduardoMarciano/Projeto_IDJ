@@ -27,6 +27,10 @@ void Face::Update(float dt){
 
 }
 
+void Face::Render(){
+
+}
+
 bool Face::Is(std::string type) {
     return type == "Face";
 }

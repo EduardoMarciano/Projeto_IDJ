@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "GameObject.h"
 #include "State.h"
 #include <iostream>
 #include <SDL_image.h>
@@ -27,8 +28,11 @@ Game::Game(const std::string& title, int width, int height) {
     //Criando o renderizador
     if (renderer == nullptr) {
         std::cerr << "Erro ao criar o renderizador: " << SDL_GetError() << std::endl;
+
+
     }
-    state = new State();
+    GameObject gameObject;
+    State* state = new State(gameObject);  
 }
 
 Game::~Game() {
