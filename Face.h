@@ -9,6 +9,7 @@
 class Face: public Component{
     public:
         Face(GameObject& associated);
+        ~Face();
         
         void Damage(int Damage);
         void Update(float dt);

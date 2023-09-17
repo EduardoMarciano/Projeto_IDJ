@@ -7,6 +7,9 @@
 Face::Face(GameObject& associated):Component(associated), hitpoints(30){
 
 }
+Face::~Face(){
+
+}
 
 void Face::Damage(int damage) {
     hitpoints -= damage;
@@ -14,11 +17,6 @@ void Face::Damage(int damage) {
         GameObject* owner = &associated;
         if (owner != nullptr) {
             owner->RequestDelete();
-            
-            Sound* sound = dynamic_cast<Sound*>(owner->GetComponent("Sound"));
-            if (sound != nullptr) {
-                sound->Play();
-            }
         }
     }
 }

@@ -4,9 +4,13 @@
 #include "Game.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
+    associated.box.h = height;
+    associated.box.w = width;
 
 }
-Sprite::Sprite(const std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
+Sprite::Sprite(std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
+    associated.box.h = height;
+    associated.box.w = width;
     Open(file);
 }
 
@@ -16,7 +20,7 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Open(const std::string& file) {
+void Sprite::Open(std::string& file) {
     if(texture != nullptr){
         SDL_DestroyTexture(texture);
     }
@@ -49,8 +53,8 @@ void Sprite::Render() {
 
     dstrect->x = associated.box.x;
     dstrect->y = associated.box.y;
-    dstrect->w = associated.box.w;
-    dstrect->h = associated.box.h;
+    dstrect->w = clipRect.w;
+    dstrect->h = clipRect.h;
 
     SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 }

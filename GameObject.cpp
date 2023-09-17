@@ -9,17 +9,17 @@ GameObject::GameObject() : box(0, 0, 0, 0), isDead(false) {
 }
 
 GameObject::~GameObject() {
-    // Não é necessário fazer nada aqui, pois os unique_ptr cuidarão da liberação automática de memória.
+    components.clear();
 }
 
 void GameObject::Update(float dt) {
-    for (auto& component : components) {
+    for (std::unique_ptr<Component>& component : components) {
         component->Update(dt);
     }
 }
 
 void GameObject::Render() {
-    for (auto& component : components) {
+    for (std::unique_ptr<Component>& component : components) {
         component->Render();
     }
 }
@@ -33,24 +33,22 @@ void GameObject::RequestDelete() {
 }
 
 void GameObject::AddComponent(std::unique_ptr<Component> cpt) {
-    components.push_back(std::move(cpt)); // Usamos std::move para transferir a propriedade do ponteiro exclusivo
+    components.push_back(std::move(cpt));
 }
 
-void GameObject::RemoveComponent(Component* cpt) {
-    auto it = std::remove_if(components.begin(), components.end(),
-        [cpt](const std::unique_ptr<Component>& component) {
-            return component.get() == cpt;
-        });
-
-    if (it != components.end()) {
-        components.erase(it, components.end());
-    }
+void GameObject::RemoveComponent(std::unique_ptr<Component> cpt) {
+        for (auto it = components.begin(); it != components.end(); ++it) {
+            if (it->get() == cpt.get()) {
+                components.erase(it);
+                break;
+            }
+        }
 }
 
-Component* GameObject::GetComponent(std::string type) {
-    for (const auto& component : components) {
+std::unique_ptr<Component> GameObject::GetComponent(std::string type) {
+    for (auto& component : components) {
         if (component->Is(type)) {
-            return component.get();
+            return std::move(component);
         }
     }
     return nullptr;

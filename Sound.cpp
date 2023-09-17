@@ -8,7 +8,6 @@ Sound::Sound(GameObject& associated) :Component(associated), chunk(nullptr) {
 }
 Sound::Sound(GameObject& associated, std::string file) : Sound(associated){
     Open(file);
-
 }
 Sound::~Sound(){
     if(chunk != nullptr){

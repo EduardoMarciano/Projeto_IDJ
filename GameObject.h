@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
-#include <memory> // Adicione a inclusão para unique_ptr
+#include <memory>
 #include "Rect.h"
 
 class Component;
@@ -19,14 +19,14 @@ public:
     void Render();
     bool IsDead();
     void RequestDelete();
-    void AddComponent(std::unique_ptr<Component> cpt); // Alteração aqui
-    void RemoveComponent(Component* cpt);
-    Component* GetComponent(std::string type);
+    void AddComponent(std::unique_ptr<Component> cpt);
+    void RemoveComponent(std::unique_ptr<Component> cpt);
+    std::unique_ptr<Component> GetComponent(std::string type);
 
     Rect box;
 
 private:
-    std::vector<std::unique_ptr<Component>> components; // Alteração aqui
+    std::vector<std::unique_ptr<Component>> components; 
     bool isDead;
 };
 
