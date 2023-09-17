@@ -31,8 +31,8 @@ Game::Game(const std::string& title, int width, int height) {
 
 
     }
-    GameObject gameObject;
-    State* state = new State(gameObject);  
+
+    state = new State();  
 }
 
 Game::~Game() {

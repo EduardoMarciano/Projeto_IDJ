@@ -8,7 +8,7 @@ Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr)
     associated.box.w = width;
 
 }
-Sprite::Sprite(std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
+Sprite::Sprite(const std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
     associated.box.h = height;
     associated.box.w = width;
     Open(file);
@@ -20,7 +20,7 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Open(std::string& file) {
+void Sprite::Open( const std::string& file) {
     if(texture != nullptr){
         SDL_DestroyTexture(texture);
     }
@@ -68,7 +68,6 @@ int Sprite::GetHeight() {
 }
 
 void Sprite::Update(float teste) {
-    return;
 }
 
 bool Sprite::IsOpen() {

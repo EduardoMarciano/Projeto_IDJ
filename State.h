@@ -9,7 +9,7 @@
 
 class State {
 public:
-    State(GameObject& bgObject);
+    State();
     ~State();
 
     // Funções

@@ -9,11 +9,11 @@ class Sprite : public Component {
 public:
     // Construtores e Destrutor
     Sprite(GameObject& associated);
-    Sprite(std::string& file, GameObject& associated);
+    Sprite(const std::string& file, GameObject& associated);
     ~Sprite();
 
     // Métodos públicos
-    void Open(std::string& file);
+    void Open(const std::string& file);
     void SetClip(int x, int y, int w, int h);
     int GetWidth();
     int GetHeight();
