@@ -8,9 +8,7 @@ Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr)
     associated.box.w = width;
 
 }
-Sprite::Sprite(const std::string& file, GameObject& associated) : Component(associated), texture(nullptr) {
-    associated.box.h = height;
-    associated.box.w = width;
+Sprite::Sprite(const std::string file, GameObject& associated) : Component(associated), texture(nullptr) {
     Open(file);
 }
 
@@ -20,7 +18,7 @@ Sprite::~Sprite() {
     }
 }
 
-void Sprite::Open( const std::string& file) {
+void Sprite::Open( const std::string file) {
     if(texture != nullptr){
         SDL_DestroyTexture(texture);
     }
@@ -47,16 +45,14 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 void Sprite::Render() {
 
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
-    
-    SDL_Rect* srcrect;
-    SDL_Rect* dstrect;
+    SDL_Rect dstrect;
 
-    dstrect->x = associated.box.x;
-    dstrect->y = associated.box.y;
-    dstrect->w = clipRect.w;
-    dstrect->h = clipRect.h;
+    dstrect.x = associated.box.x;
+    dstrect.y = associated.box.y;
+    dstrect.w = clipRect.w;
+    dstrect.h = clipRect.h;
 
-    SDL_RenderCopy(renderer, texture, srcrect, dstrect);
+    SDL_RenderCopy(renderer, texture, &clipRect, &dstrect);
 }
 
 int Sprite::GetWidth() {
@@ -79,5 +75,8 @@ bool Sprite::IsOpen() {
 }
 
 bool Sprite::Is( std::string type)  {
-    return type == "Sprite";
+    if (type == "Sprite"){
+        return true;
+    }
+    return false;
 }

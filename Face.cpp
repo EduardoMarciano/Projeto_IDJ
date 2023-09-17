@@ -14,12 +14,10 @@ Face::~Face(){
 void Face::Damage(int damage) {
     hitpoints -= damage;
     if (hitpoints <= 0) {
-        GameObject* owner = &associated;
-        if (owner != nullptr) {
-            owner->RequestDelete();
-        }
-    }
+        associated.RequestDelete();
 }
+}
+
 
 void Face::Update(float dt){
 

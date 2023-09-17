@@ -79,7 +79,7 @@ void State::Input()
                 // Esse código, assim como a classe Face, é provisório. Futuramente, para
                 // chamar funções de GameObjects, use objectArray[i]->função() direto.
 
-                if (go->box.Contains((float)mouseX, (float)mouseY))
+                if (go->box.Contains({(float)mouseX, (float)mouseY}))
                 {
                     Face *face = (Face *)go->GetComponent("Face");
                     if (nullptr != face)

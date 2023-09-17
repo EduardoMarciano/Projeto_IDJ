@@ -32,7 +32,9 @@ Game::Game(const std::string& title, int width, int height) {
 
     }
 
-    state = new State();  
+    state = new State(); 
+    srand(time(NULL));
+
 }
 
 Game::~Game() {
