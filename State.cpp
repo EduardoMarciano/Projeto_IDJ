@@ -1,6 +1,7 @@
 #include <bits/types/FILE.h>
 #include <cmath>
 #include "GameObject.h"
+#include "Music.h"
 #include "Sprite.h"
 #include <iostream>
 #include <SDL_image.h>
@@ -12,8 +13,20 @@
 #include "Rect.h"
 #include "Face.h"
 
-State:: State() : quitRequested(false), music("audio/stageState.ogg"), bg("img/ocean.jpg", *new GameObject()){
-    music.Play(-1);
+State:: State() : quitRequested(false){
+	GameObject *object = new GameObject();
+	 bg = new Sprite("img/ocean.jpg", *object);
+	 music = new Music("audio/stageState.ogg");
+    object->AddComponent(bg);
+
+    object->box.x = 0;
+    object->box.y = 0;
+    object->box.w = bg->GetWidth();
+    object->box.h = bg->GetHeight();
+	
+	objectArray.emplace_back(object);
+
+	music->Play(-1);
 }
 
 State::~State(){
@@ -73,20 +86,15 @@ void State::Input()
             {
                 // Obtem o ponteiro e casta pra Face.
                 GameObject *go = (GameObject *)objectArray[i].get();
-                // Nota: Desencapsular o ponteiro é algo que devemos evitar ao máximo.
-                // O propósito do unique_ptr é manter apenas uma cópia daquele ponteiro,
-                // ao usar get(), violamos esse princípio e estamos menos seguros.
-                // Esse código, assim como a classe Face, é provisório. Futuramente, para
-                // chamar funções de GameObjects, use objectArray[i]->função() direto.
 
                 if (go->box.Contains({(float)mouseX, (float)mouseY}))
                 {
                     Face *face = (Face *)go->GetComponent("Face");
+					Sound *sound = (Sound *)go->GetComponent("Sound");
                     if (nullptr != face)
                     {
-                        // Aplica dano
+                        sound->Play();
                         face->Damage(std::rand() % 10 + 10);
-                        // Sai do loop (só queremos acertar um)
                         break;
                     }
                 }

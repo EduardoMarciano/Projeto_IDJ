@@ -16,12 +16,12 @@ Sound::~Sound(){
     }
 }
 void Sound::Play(int times){
-    Mix_PlayChannel(-1,chunk, times);
+    Mix_PlayChannel(-1,chunk, times-1);
 
 }
 void Sound::Stop(){
     if (chunk != nullptr) {
-        Mix_HaltChannel(channel);
+        Mix_HaltChannel(-1);
     }
 }
 void Sound::Open(std:: string file)
