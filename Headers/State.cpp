@@ -1,11 +1,22 @@
-#include "../Headers/Game.h"
-#include "../Headers/Sound.h"
-#include "../Headers/Face.h"
+#include <bits/types/FILE.h>
+#include <cmath>
+#include "GameObject.h"
+#include "Music.h"
+#include "Sprite.h"
+#include <iostream>
+#include <SDL_image.h>
+#include <string>
+#include "Game.h"
+#include "State.h"
+#include "Sound.h"
+#include "Vec2.h"
+#include "Rect.h"
+#include "Face.h"
 
 State:: State() : quitRequested(false){
 	GameObject *object = new GameObject();
-	 bg     = new Sprite("../DATA/img/ocean.jpg", *object);
-	 music  = new Music("../DATA/audio/stageState.ogg");
+	 bg = new Sprite("img/ocean.jpg", *object);
+	 music = new Music("audio/stageState.ogg");
     object->AddComponent(bg);
 
     object->box.x = 0;
@@ -72,7 +83,7 @@ void State::Input()
 
             // Percorrer de trás pra frente pra sempre clicar no objeto mais de cima
             for (int i = objectArray.size() - 1; i >= 0; --i)
-                {
+            {
                 // Obtem o ponteiro e casta pra Face.
                 GameObject *go = (GameObject *)objectArray[i].get();
 
@@ -80,7 +91,9 @@ void State::Input()
                 {
                     Face *face = (Face *)go->GetComponent("Face");
 					Sound *sound = (Sound *)go->GetComponent("Sound");
-                    if (nullptr != face){
+
+                    if (nullptr != face)
+                    {
                         face->Damage(std::rand() % 10 + 10, sound);
                         break;
                     }
@@ -109,11 +122,11 @@ void State::AddObject(int mouseX, int mouseY) {
 	object->box.x = mouseX;
     object->box.y = mouseY;
 
-    Sprite *sprite = new Sprite("../DATA/img/penguinface.png", *object);
+    Sprite *sprite = new Sprite("img/penguinface.png", *object);
 	object->box.w = sprite->GetWidth();
     object->box.h = sprite->GetHeight();
     
-	Sound *sound = new Sound(*object, "../DATA/audio/boom.wav");
+	Sound *sound = new Sound(*object, "audio/boom.wav");
 	Face *face = new Face(*object);
 
 	object->AddComponent(sprite);

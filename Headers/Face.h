@@ -2,13 +2,14 @@
 #define Face_H
 
 #include "Component.h"
+#include "Sound.h"
 
 class Face: public Component{
     public:
         Face(GameObject& associated);
         ~Face();
         
-        void Damage(int Damage);
+        void Damage(int Damage, Sound* sound);
         void Update(float dt);
         void Render();
 
