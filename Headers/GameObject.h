@@ -1,7 +1,7 @@
 #ifndef GameObject_H
 #define GameObject_H
 
-#include <SDL.h>
+
 #include <string>
 #include <vector>
 #include <memory>

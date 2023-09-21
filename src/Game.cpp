@@ -1,10 +1,8 @@
-#include "Game.h"
-#include "GameObject.h"
-#include "State.h"
 #include <iostream>
 #include <SDL_image.h>
 #include <SDL_mixer.h> 
 #include <SDL_ttf.h>
+#include "../Headers/Game.h"
 
 Game* Game::instance = nullptr;
 

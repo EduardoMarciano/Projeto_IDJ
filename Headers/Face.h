@@ -2,9 +2,6 @@
 #define Face_H
 
 #include "Component.h"
-#include "GameObject.h"
-#include <SDL.h>
-#include <string>
 
 class Face: public Component{
     public:

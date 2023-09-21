@@ -1,11 +1,8 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include <vector>
-#include <memory>
 #include "Sprite.h"
 #include "Music.h"
-#include "GameObject.h"
 
 class State {
 public:

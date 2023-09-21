@@ -1,4 +1,4 @@
-#include "Vec2.h"
+#include "../Headers/Vec2.h"
 #include <cmath>
 
 Vec2::Vec2()

@@ -1,10 +1,9 @@
 #ifndef Sound_H
 #define Sound_H
 
-#include "Component.h"
 #include "SDL_mixer.h"
-#include <SDL.h>
-#include <string>
+#include "Component.h"
+
 
 class Sound : public Component {
     public:

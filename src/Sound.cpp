@@ -1,7 +1,5 @@
 #include <iostream>
-#include "Component.h"
-#include "GameObject.h"
-#include "Sound.h"
+#include "../Headers/Sound.h"
 
 Sound::Sound(GameObject& associated) :Component(associated), chunk(nullptr) {
 

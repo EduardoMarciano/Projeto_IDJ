@@ -2,8 +2,6 @@
 #define SPRITE_H
 
 #include "Component.h"
-#include <string>
-#include <SDL.h>
 
 class Sprite : public Component {
 public:

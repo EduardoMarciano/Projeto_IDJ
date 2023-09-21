@@ -1,7 +1,7 @@
-#include "Sprite.h"
 #include <iostream>
 #include <SDL_image.h>
-#include "Game.h"
+#include "../Headers/Game.h"
+#include "../Headers/Sprite.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
     associated.box.h = height;

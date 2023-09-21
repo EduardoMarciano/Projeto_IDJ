@@ -1,8 +1,4 @@
-#include <iostream>
-#include "Component.h"
-#include "GameObject.h"
-#include <algorithm>
-
+#include "../Headers/Component.h"
 
 GameObject::GameObject() : box(0, 0, 0, 0), isDead(false) {
 

@@ -1,6 +1,5 @@
-#include "Music.h"
 #include <iostream>
-#include <SDL_mixer.h>
+#include "../Headers/Music.h"
 
 Music::Music() : music(nullptr) {
 }
