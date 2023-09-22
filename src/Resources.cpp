@@ -1,6 +1,9 @@
 #include "../Headers/Resources.h"
 #include "../Headers/Game.h"
-#include "SDL_mixer.h"
+
+std::unordered_map<std::string, Mix_Chunk*> Resources::soundTable;
+std::unordered_map<std::string, Mix_Music*> Resources::musicTable;
+std::unordered_map<std::string, SDL_Texture*> Resources::imageTable;
 
 SDL_Texture* Resources::GetImage(std::string file){
     SDL_Texture* texture;

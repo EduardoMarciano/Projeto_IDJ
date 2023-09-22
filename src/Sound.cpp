@@ -9,10 +9,7 @@ Sound::Sound(GameObject& associated, std::string file) : Sound(associated){
     Open(file);
 }
 Sound::~Sound(){
-    if(chunk != nullptr){
-        Stop();
-        Mix_FreeChunk(chunk);
-    }
+
 }
 void Sound::Play(int times){
     Mix_PlayChannel(-1,chunk, times-1);

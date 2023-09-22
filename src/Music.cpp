@@ -41,10 +41,5 @@ bool Music::IsOpen() const {
 }
 
 Music::~Music() {
-    Stop(1500);
-    if (music != nullptr) {
-        Mix_FreeMusic(music);
-        music = nullptr;
-        
-    }
+
 }
