@@ -3,6 +3,7 @@
 #include <SDL_mixer.h> 
 #include <SDL_ttf.h>
 #include "../Headers/Game.h"
+#include "../Headers/Resources.h"
 
 Game* Game::instance = nullptr;
 
@@ -104,4 +105,7 @@ void Game::CleanupSDL() {
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
+    Resources::ClearImages();
+    Resources::ClearMusics();
+    Resources::ClearSounds();
 }

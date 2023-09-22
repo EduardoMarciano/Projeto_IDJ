@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL_image.h>
 #include "../Headers/Game.h"
+#include "../Headers/Resources.h"
 #include "../Headers/Sprite.h"
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
@@ -13,25 +14,20 @@ Sprite::Sprite(const std::string file, GameObject& associated) : Component(assoc
 }
 
 Sprite::~Sprite() {
-    if (texture != nullptr){
-        SDL_DestroyTexture(texture);
-    }
+
 }
 
 void Sprite::Open( const std::string file) {
-    if(texture != nullptr){
-        SDL_DestroyTexture(texture);
-    }
-    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+    texture = Resources::GetImage(file.c_str());
 
     if (texture == nullptr) {
-        std::cerr << "Erro ao carregar textura: " << SDL_GetError() << std::endl;
+         texture = Resources::GetImage(file.c_str());
+         if(texture == nullptr){
+             std::cerr << "Erro ao carregar textura: " << SDL_GetError() << std::endl;
         return;
+         }
     }
-
-    int queryResult = SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-
-        
+    int queryResult = SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);   
     SetClip(0, 0, width, height);
 }
 
