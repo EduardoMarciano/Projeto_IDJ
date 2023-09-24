@@ -16,6 +16,7 @@ public:
     int GetWidth();
     int GetHeight();
     bool IsOpen();
+     void Render(int x, int y);
 
     //Metodos Herdados de Component
     void Render();

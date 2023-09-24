@@ -4,8 +4,8 @@
 
 State:: State() : quitRequested(false){
 	GameObject *object = new GameObject();
-	 bg     = new Sprite("../DATA/img/ocean.jpg", *object);
-	 music  = new Music("../DATA/audio/stageState.ogg");
+	bg     = new Sprite("../DATA/img/ocean.jpg", *object);
+	music  = new Music("../DATA/audio/stageState.ogg");
     object->AddComponent(bg);
 
     object->box.x = 0;
