@@ -25,7 +25,7 @@ void TileSet::RenderTile(unsigned index, float x, float y){
         int tileY = (index / columns) * tileHeight;
         
         tileSet->SetClip(tileX, tileY, tileWidth, tileHeight);
-        tileSet->Render(x, y);
+        tileSet->Render((int) x, (int) y);
     
     }else {
         std::cerr << "Índice de tile inválido: " << index << std::endl;

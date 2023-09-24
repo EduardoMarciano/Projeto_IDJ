@@ -1,57 +1,67 @@
 [
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "main.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Game.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Game.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game GameObject.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "GameObject.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Music.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Music.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Rect.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Rect.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Sound.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Sound.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Sprite.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Sprite.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game State.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "State.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Vec2.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Vec2.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Face.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Face.cpp"
   },
   {
     "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
-    "command": "g++ -o Game main.cpp Game.cpp GameObject.cpp Music.cpp Rect.cpp Sound.cpp Sprite.cpp State.cpp Vec2.cpp Face.cpp -std=c++11 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "command": "g++ -o Game Component.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
     "file": "Component.cpp"
+  },
+  {
+    "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
+    "command": "g++ -o Game TileSet.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "file": "TileSet.cpp"
+  }, 
+  {
+    "directory": "/home/eduardo_marciano/Documents/GitHub/Projeto_IDJ/src",
+    "command": "g++ -o Game TileMap.cpp -std=c++17 -I/usr/include/SDL2 -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf",
+    "file": "TileMap.cpp"
   }  
 ]

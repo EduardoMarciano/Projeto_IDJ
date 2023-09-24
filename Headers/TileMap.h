@@ -3,6 +3,7 @@
 
 #include "../Headers/Component.h"
 #include "../Headers/TileSet.h"
+#include <string>
 
 class TileMap: public Component{
     
@@ -12,6 +13,7 @@ class TileMap: public Component{
         void Load(std::string file);
         void SetTileSet(TileSet* tileSet);
         void Render();
+        void Update(float td);
         void RenderLayer(int layer, int cameraX = 0, int cameraY = 0);
 
         int& At(int x, int y,int z = 0);
@@ -19,6 +21,8 @@ class TileMap: public Component{
         int GetWidth();
         int GetHeight();
         int GetDepth();
+
+        bool Is(std::string type);
 
     private:
     int mapWidth;

@@ -1,6 +1,8 @@
 #include "../Headers/Game.h"
 #include "../Headers/Sound.h"
 #include "../Headers/Face.h"
+#include "../Headers/TileMap.h"
+#include <algorithm> 
 
 State:: State() : quitRequested(false){
 	GameObject *object = new GameObject();
@@ -12,16 +14,24 @@ State:: State() : quitRequested(false){
     object->box.y = 0;
     object->box.w = bg->GetWidth();
     object->box.h = bg->GetHeight();
-	
-	objectArray.emplace_back(object);
 
-	music->Play(-1);
+    GameObject* map = new GameObject();
+    map->box.x = 0;
+    map->box.y = 0;
+    TileSet* tileSet = new TileSet(64, 64, "../DATA/img/tileset.png");
+    TileMap* tileMap = new TileMap(*map, "../DATA/Tiles/tileMap.txt", tileSet);
+    map->AddComponent(tileMap);
+    map->box.x = 0;
+    map->box.y = 0;
+
+    objectArray.emplace_back(object);
+    objectArray.emplace_back(map);
+    music->Play(-1);
 }
 
 State::~State(){
     objectArray.clear();
 }
-
 
 void State::LoadAssets() {
 }
