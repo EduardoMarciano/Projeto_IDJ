@@ -9,7 +9,7 @@ class Face: public Component{
         Face(GameObject& associated);
         ~Face();
         
-        void Damage(int Damage, Sound* sound);
+        void Damage(int Damage);
         void Update(float dt);
         void Render();
 

@@ -9,7 +9,7 @@ public:
     Rect();
     Rect(float x, float y);
     Rect(float x, float y, float w, float h);
-    bool Contains(Vec2 points);
+    bool Contains(Vec2* points);
 
 private:
 };

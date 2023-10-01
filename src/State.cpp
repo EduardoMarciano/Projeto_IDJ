@@ -2,6 +2,7 @@
 #include "../Headers/Sound.h"
 #include "../Headers/Face.h"
 #include "../Headers/TileMap.h"
+#include "../Headers/InputManager.h"
 #include <algorithm> 
 
 State:: State() : quitRequested(false){
@@ -37,7 +38,15 @@ void State::LoadAssets() {
 }
 
 void State::Update(float dt) {
-    Input();
+    if ((InputManager::GetInstance().KeyPress(ESCAPE_KEY)) || (InputManager::GetInstance().QuitRequested())){
+        quitRequested = true;
+    }
+    else if (InputManager::GetInstance().KeyPress(SPACEBAR_KEY)){
+    
+    Vec2 objPos = Vec2(200, 0).GetRotated((-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
+    AddObject((int)objPos.x, (int)objPos.y);
+    
+    }
     for (int i = 0; i < objectArray.size(); i++) {
         objectArray[i]->Update(dt);
     }
@@ -56,62 +65,6 @@ void State::Render() {
 
 bool State::QuitRequested() {
     return quitRequested;
-}
-
-void State::Input()
-{
-    SDL_Event event;
-    int mouseX, mouseY;
-
-    // Obtenha as coordenadas do mouse
-    SDL_GetMouseState(&mouseX, &mouseY);
-
-    // SDL_PollEvent retorna 1 se encontrar eventos, zero caso contrário
-    while (SDL_PollEvent(&event))
-    {
-
-        // Se o evento for quit, setar a flag para terminação
-        if (event.type == SDL_QUIT)
-        {
-            quitRequested = true;
-        }
-
-        // Se o evento for clique...
-        if (event.type == SDL_MOUSEBUTTONDOWN)
-        {
-
-            // Percorrer de trás pra frente pra sempre clicar no objeto mais de cima
-            for (int i = objectArray.size() - 1; i >= 0; --i)
-                {
-                // Obtem o ponteiro e casta pra Face.
-                GameObject *go = (GameObject *)objectArray[i].get();
-
-                if (go->box.Contains({(float)mouseX, (float)mouseY}))
-                {
-                    Face *face = (Face *)go->GetComponent("Face");
-					Sound *sound = (Sound *)go->GetComponent("Sound");
-                    if (nullptr != face){
-                        face->Damage(std::rand() % 10 + 10, sound);
-                        break;
-                    }
-                }
-            }
-        }
-        if (event.type == SDL_KEYDOWN)
-        {
-            // Se a tecla for ESC, setar a flag de quit
-            if (event.key.keysym.sym == SDLK_ESCAPE)
-            {
-                quitRequested = true;
-            }
-            // Se não, crie um objeto
-            else
-            {
-                Vec2 objPos = Vec2(200, 0).GetRotated((-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(mouseX, mouseY);
-                AddObject((int)objPos.x, (int)objPos.y);
-            }
-        }
-    }
 }
 
 void State::AddObject(int mouseX, int mouseY) {

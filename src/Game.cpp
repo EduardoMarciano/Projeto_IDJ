@@ -4,7 +4,7 @@
 #include <SDL_ttf.h>
 #include "../Headers/Game.h"
 #include "../Headers/Resources.h"
-
+#include "../Headers/InputManager.h"
 Game* Game::instance = nullptr;
 
 Game::Game(const std::string& title, int width, int height) {
@@ -43,7 +43,9 @@ Game::~Game() {
 
 void Game::Run() {
     while (!state->QuitRequested()) {
+
         state->Update(0.033f);
+        InputManager::GetInstance().Update();
         state->Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(33);

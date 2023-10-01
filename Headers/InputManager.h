@@ -1,11 +1,21 @@
 #ifndef InputManager_H
 #define InputManager_H
 
+#define LEFT_ARROW_KEY      SDLK_LEFT
+#define RIGHT_ARROW_KEY     SDLK_RIGHT
+#define UP_ARROW_KEY        SDLK_UP
+#define DOWN_ARROW_KEY      SDLK_DOWN
+#define ESCAPE_KEY          SDLK_ESCAPE
+#define LEFT_MOUSE_BUTTON   SDL_BUTTON_LEFT
+#define SPACEBAR_KEY 32
+
+#include <unordered_map>
+
 class InputManager{ 
     public:
         InputManager();
         ~InputManager ();
-        InputManager& GetInstance ();
+        static InputManager& GetInstance ();
 
         void Update();
         
@@ -30,6 +40,9 @@ class InputManager{
         
         bool mouseState[6];
         bool quitRequested;
+
+        std::unordered_map<int, bool> keyState;
+        std::unordered_map<int, int> keyUpdate;
 
 };
 #endif

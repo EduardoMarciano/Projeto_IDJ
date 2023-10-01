@@ -15,7 +15,6 @@ public:
     void Render();
     void LoadAssets();
 private:
-    void Input();
     void AddObject(int mouseX, int mouseY);
 
     Sprite* bg;
