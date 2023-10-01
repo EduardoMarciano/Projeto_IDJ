@@ -18,6 +18,9 @@ public:
     State& GetState();
     static Game& GetInstance();
 
+    float GetDeltaTime ();
+
+
 private:
     //Construtor
     Game(const std::string& title, int width, int height);
@@ -26,6 +29,10 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     State* state;
+
+    float dt;
+    int frameStart;
+    void CalculateDeltaTime();
 };
 
 #endif
