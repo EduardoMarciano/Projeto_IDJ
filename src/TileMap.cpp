@@ -9,6 +9,7 @@ TileMap::TileMap(GameObject &associated, std::string file, TileSet *tileSet):Com
     std::cout << "estou aqui3" <<std::endl;
     
 }
+
 void TileMap::Load(std::string file) {
     std::ifstream mapFile(file);
     if (!mapFile.is_open()) {
@@ -84,6 +85,7 @@ bool TileMap::Is(std::string type){
         return false;
     }
 }
+
 void TileMap::Update(float dt) {
     return;
 }
