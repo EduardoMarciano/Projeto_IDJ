@@ -1,9 +1,9 @@
 #include "../Headers/Game.h"
-#include "../Headers/Sound.h"
+#include "../Headers/Camera.h"
 #include "../Headers/Face.h"
 #include "../Headers/TileMap.h"
 #include "../Headers/InputManager.h"
-#include <algorithm> 
+
 
 State:: State() : quitRequested(false){
 	GameObject *object = new GameObject();
@@ -38,13 +38,15 @@ void State::LoadAssets() {
 }
 
 void State::Update(float dt) {
+    Camera::Update(dt);
+
     if ((InputManager::GetInstance().KeyPress(ESCAPE_KEY)) || (InputManager::GetInstance().QuitRequested())){
         quitRequested = true;
     }
     else if (InputManager::GetInstance().KeyPress(SPACEBAR_KEY)){
     
     Vec2 objPos = Vec2(200, 0).GetRotated((-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
-    AddObject((int)objPos.x, (int)objPos.y);
+    AddObject((int)objPos.x  - Camera::pos.x, (int)objPos.y  - Camera::pos.y);
     
     }
     for (int i = 0; i < objectArray.size(); i++) {
@@ -58,6 +60,7 @@ void State::Update(float dt) {
 }
 
 void State::Render() {
+    
     for (std::vector<int>::size_type i = 0; i < objectArray.size(); i++){
         objectArray[i]->Render();
     }

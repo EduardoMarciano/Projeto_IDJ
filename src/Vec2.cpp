@@ -1,12 +1,6 @@
 #include "../Headers/Vec2.h"
 #include <cmath>
 
-Vec2::Vec2()
-{
-    x = 0.0;
-    y = 0.0;
-}
-
 Vec2::Vec2(float xrec, float yrec)
 {
     x = xrec;
