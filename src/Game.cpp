@@ -7,7 +7,7 @@
 #include "../Headers/InputManager.h"
 Game* Game::instance = nullptr;
 
-Game::Game(const std::string& title, int width, int height) {
+Game::Game(const std::string& title, int width, int height) : dt(0.0f), frameStart(0) {
     // cria ou reenvia a intanciação do jogo
     if (instance != nullptr) {
         std::cerr << "Erro: Já existe uma instância da classe Game em execução." << std::endl;
@@ -44,11 +44,12 @@ Game::~Game() {
 void Game::Run() {
     while (!state->QuitRequested()) {
 
-        state->Update(0.033f);
+        CalculateDeltaTime();
+        state->Update(dt);
         InputManager::GetInstance().Update();
         state->Render();
         SDL_RenderPresent(renderer);
-        SDL_Delay(33);
+        SDL_Delay(dt);
     }
 }
 
@@ -110,4 +111,16 @@ void Game::CleanupSDL() {
     Resources::ClearImages();
     Resources::ClearMusics();
     Resources::ClearSounds();
+}
+
+void Game::CalculateDeltaTime() {
+    Uint32 frameEnd = SDL_GetTicks(); 
+    Uint32 frameTicks = frameEnd - frameStart;
+    frameStart = frameEnd;
+    dt = static_cast<float>(frameTicks) / 1000.0f;
+
+}
+
+float Game::GetDeltaTime(){
+    return dt;
 }

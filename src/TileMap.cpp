@@ -6,7 +6,6 @@
 
 TileMap::TileMap(GameObject &associated, std::string file, TileSet *tileSet):Component(associated), tileSet(tileSet){
     TileMap::Load(file.c_str());
-    std::cout << "estou aqui3" <<std::endl;
     
 }
 void TileMap::Load(std::string file) {
