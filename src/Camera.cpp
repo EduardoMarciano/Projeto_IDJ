@@ -22,23 +22,20 @@ void Camera::Update(float dt) {
         speed.y = 0;
 
         if (InputManager::GetInstance().IsKeyDown(RIGHT_ARROW_KEY)){
-            speed.x = velocidade;
+            speed.x = -velocidade;
         }
         else if(InputManager::GetInstance().IsKeyDown(LEFT_ARROW_KEY)){
-            speed.x = -1 * velocidade;
+            speed.x = velocidade;
         }
         
         if (InputManager::GetInstance().IsKeyDown(UP_ARROW_KEY)){
-            speed.y = -1 * velocidade;
+            speed.y = velocidade;
         }
         else if(InputManager::GetInstance().IsKeyDown(DOWN_ARROW_KEY)){
-            speed.y = velocidade;
+            speed.y = -velocidade;
         }
 
         pos.x += dt * speed.x;
         pos.y += dt * speed.y;
     }
 }
- 
-
-

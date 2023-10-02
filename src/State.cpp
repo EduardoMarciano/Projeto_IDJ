@@ -3,13 +3,16 @@
 #include "../Headers/Face.h"
 #include "../Headers/TileMap.h"
 #include "../Headers/InputManager.h"
-
+#include "../Headers/CameraFollower.h"
 
 State:: State() : quitRequested(false){
 	GameObject *object = new GameObject();
 	bg     = new Sprite("../DATA/img/ocean.jpg", *object);
 	music  = new Music("../DATA/audio/stageState.ogg");
     object->AddComponent(bg);
+
+    CameraFollower *cameraFollower = new CameraFollower(*object);
+    object->AddComponent(cameraFollower);
 
     object->box.x = 0;
     object->box.y = 0;
@@ -45,8 +48,8 @@ void State::Update(float dt) {
     }
     else if (InputManager::GetInstance().KeyPress(SPACEBAR_KEY)){
     
-    Vec2 objPos = Vec2(200, 0).GetRotated((-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
-    AddObject((int)objPos.x  - Camera::pos.x, (int)objPos.y  - Camera::pos.y);
+    Vec2 obj = Vec2(200, 0).GetRotated((-M_PI + M_PI * (rand() % 1001) / 500.0)) + Vec2(InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
+    AddObject((int)obj.x  - Camera::pos.x, (int)obj.y  - Camera::pos.y);
     
     }
     for (int i = 0; i < objectArray.size(); i++) {

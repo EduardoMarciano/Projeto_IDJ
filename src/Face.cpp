@@ -1,4 +1,5 @@
 #include "../Headers/Face.h"
+#include "../Headers/Camera.h"
 #include "../Headers/InputManager.h"
 
 Face::Face(GameObject& associated):Component(associated), hitpoints(30){
@@ -19,7 +20,7 @@ void Face::Damage(int damage) {
 void Face::Update(float dt){
     if (InputManager::GetInstance().MousePress(LEFT_MOUSE_BUTTON)){
 
-        Vec2* vetor = new Vec2(InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
+        Vec2* vetor = new Vec2(InputManager::GetInstance().GetMouseX() - Camera::pos.x, InputManager::GetInstance().GetMouseY()- Camera::pos.y);
         
         if (associated.box.Contains(vetor)){
             int damage = std::rand() % 10 + 10;

@@ -43,7 +43,7 @@ Game::~Game() {
 
 void Game::Run() {
     while (!state->QuitRequested()) {
-
+        
         CalculateDeltaTime();
         state->Update(dt);
         InputManager::GetInstance().Update();

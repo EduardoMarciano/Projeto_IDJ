@@ -50,8 +50,8 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
             int tileIndex = At(x, y, layer);
 
             if (tileIndex >= 0) {
-                int renderX = x * tileWidth - cameraX;
-                int renderY = y * tileHeight - cameraY;
+                int renderX = (float)(x + cameraX * layer * 0.25) * tileWidth;  
+                int renderY = (float)(y + cameraY * layer * 0.25) * tileHeight;
                 tileSet->RenderTile(tileIndex, renderX, renderY);
             }
         }

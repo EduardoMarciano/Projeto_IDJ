@@ -1,8 +1,10 @@
 #include <iostream>
 #include <SDL_image.h>
 #include "../Headers/Game.h"
-#include "../Headers/Resources.h"
 #include "../Headers/Sprite.h"
+#include "../Headers/Camera.h"
+#include "../Headers/Resources.h"
+
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
     associated.box.h = height;
@@ -47,8 +49,8 @@ void Sprite::Render(int x, int y) {
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
     SDL_Rect dstrect;
 
-    dstrect.x = x;
-    dstrect.y = y;
+    dstrect.x = x + (int)Camera::pos.x;
+    dstrect.y = y + (int)Camera::pos.y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
 
