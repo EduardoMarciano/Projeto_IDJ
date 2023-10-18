@@ -5,7 +5,7 @@
 #include "../Headers/InputManager.h"
 #include "../Headers/CameraFollower.h"
 
-State:: State() : quitRequested(false){
+State:: State() : quitRequested(false), started(false){
 	GameObject *object = new GameObject();
 	bg     = new Sprite("../DATA/img/ocean.jpg", *object);
 	music  = new Music("../DATA/audio/stageState.ogg");
@@ -89,4 +89,35 @@ void State::AddObject(int mouseX, int mouseY) {
     object->AddComponent(sound);
     object->AddComponent(face);
     objectArray.emplace_back(object);
+}
+
+void State::Start(){
+    LoadAssets();
+    for (int i = 0; i < (int)objectArray.size(); i++){
+        objectArray[i]->Start();
+    }
+    started = true;
+}
+
+std::weak_ptr<GameObject> State::AddObject(GameObject *go){
+    std::shared_ptr<GameObject> shared_version(go);
+
+    objectArray.push_back(shared_version);
+    if (started){
+        shared_version->Start();
+    }
+    std::weak_ptr <GameObject> weak_version(shared_version);
+
+    return weak_version;
+
+}
+ std::weak_ptr<GameObject> State::GetObjectPtr(GameObject *go){
+    for(auto& object : objectArray){
+        if(go == object.get()){
+            std::weak_ptr <GameObject> weak_version(object);
+            return weak_version;
+        }
+    }
+    std::weak_ptr<GameObject> empty_ptr{};
+    return empty_ptr;
 }
