@@ -9,16 +9,16 @@ public:
     State();
     ~State();
 
-    // Funções
     bool QuitRequested();
     void Update(float dt);
     void Render();
     void LoadAssets();
     void Start();
+    
     std::weak_ptr<GameObject> AddObject(GameObject* go);
     std::weak_ptr<GameObject> GetObjectPtr(GameObject* go);
+
 private:
-    void AddObject(int mouseX, int mouseY);
 
     Sprite* bg;
     Music* music;
