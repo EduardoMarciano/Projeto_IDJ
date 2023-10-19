@@ -19,8 +19,6 @@ public:
     std::weak_ptr<GameObject> GetObjectPtr(GameObject* go);
 
 private:
-
-    Sprite* bg;
     Music* music;
     bool started;
     bool quitRequested;

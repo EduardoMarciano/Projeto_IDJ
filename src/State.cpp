@@ -8,17 +8,17 @@
 
 State:: State() : quitRequested(false), started(false){
 	GameObject *object = new GameObject();
-	bg     = new Sprite("../DATA/img/ocean.jpg", *object);
+	Sprite *backGround = new Sprite("../DATA/img/ocean.jpg", *object);
 	music  = new Music("../DATA/audio/stageState.ogg");
-    object->AddComponent((std::shared_ptr<Sprite>)  bg);
+    object->AddComponent((std::shared_ptr<Sprite>)  backGround);
 
     CameraFollower *cameraFollower = new CameraFollower(*object);
     object->AddComponent((std::shared_ptr<CameraFollower>) cameraFollower);
 
     object->box.x = 0;
     object->box.y = 0;
-    object->box.w = bg->GetWidth();
-    object->box.h = bg->GetHeight();
+    object->box.w = backGround->GetWidth();
+    object->box.h = backGround->GetHeight();
 
     GameObject* map = new GameObject();
     map->box.x = 0;
@@ -37,7 +37,7 @@ State:: State() : quitRequested(false), started(false){
 
     objectArray.emplace_back(object);
     objectArray.emplace_back(map);
-     objectArray.emplace_back(alienObject);
+    objectArray.emplace_back(alienObject);
     music->Play(-1);
 }
 

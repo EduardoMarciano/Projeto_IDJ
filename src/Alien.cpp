@@ -1,5 +1,8 @@
+#include "../Headers/Minion.h"
 #include "../Headers/Alien.h"
-
+#include "../Headers/Game.h"
+float ALIEN_WIDTH =     130;
+float ALIEN_HEIGHT =    163;
 Alien::Action::Action(ActionType type, float x, float y) : type(type), pos(x, y){
 }
 
@@ -32,7 +35,7 @@ void Alien::Update(float dt) {
             taskQueue.pop();
 
         } else if (item.type == MOVE) {
-            Vec2 targetPosition(item.pos.x, item.pos.y);
+            Vec2 targetPosition(item.pos.x - ALIEN_WIDTH/2, item.pos.y -  ALIEN_HEIGHT/2);
             Vec2 direction = (targetPosition - Vec2(associated.box.x, associated.box.y));
             
             direction.Normalize();
@@ -66,5 +69,14 @@ void Alien::Render(){
 }
 
 void Alien::Start(){
-    
+    std::weak_ptr<GameObject> weak_alien = Game::GetInstance().GetState().GetObjectPtr(&associated);
+
+    for (int i = 0; i < 4; i++){
+        GameObject *object_minion = new GameObject();
+        Minion *minion = new Minion(*object_minion, weak_alien, (float) i * 360/4);
+        object_minion->AddComponent((std::shared_ptr<Minion>)minion);
+
+        std::weak_ptr<GameObject> weak_minion = Game::GetInstance().GetState().AddObject(object_minion);
+        minionArray.push_back(weak_minion);
+    }
 }
