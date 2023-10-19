@@ -22,3 +22,23 @@ Vec2 operator+(const Vec2 &vector1, const Vec2 &vector2)
 
     return Vec2(x_result, y_result);
 }
+
+Vec2 operator-(const Vec2& lhs, const Vec2& rhs) {
+    return Vec2(lhs.x - rhs.x, lhs.y - rhs.y);
+}
+
+void Vec2::Normalize() {
+    float length = Magnitude();
+    if (length != 0) {
+        x /= length;
+        y /= length;
+    }
+}
+
+float Vec2::Magnitude(){
+    return std::sqrt(x * x + y * y);
+}
+
+Vec2 Vec2::operator*(float scalar) const {
+    return Vec2(x * scalar, y * scalar);
+}

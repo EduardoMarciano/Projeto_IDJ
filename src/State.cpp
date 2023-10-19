@@ -1,5 +1,6 @@
 #include "../Headers/Game.h"
 #include "../Headers/Camera.h"
+#include "../Headers/Alien.h"
 #include "../Headers/Sound.h"
 #include "../Headers/TileMap.h"
 #include "../Headers/InputManager.h"
@@ -28,8 +29,15 @@ State:: State() : quitRequested(false), started(false){
     map->box.x = 0;
     map->box.y = 0;
 
+    GameObject* alienObject = new GameObject();
+    alienObject->box.x = 512;
+    alienObject->box.y = 300;
+    Alien* alienComponent = new Alien(*alienObject, 0);
+    alienObject->AddComponent(std::shared_ptr<Alien>(alienComponent));
+
     objectArray.emplace_back(object);
     objectArray.emplace_back(map);
+     objectArray.emplace_back(alienObject);
     music->Play(-1);
 }
 
