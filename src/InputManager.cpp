@@ -1,3 +1,4 @@
+#include "../Headers/Camera.h"
 #include "../Headers/InputManager.h"
 #include <SDL2/SDL.h>
 
@@ -15,6 +16,9 @@ InputManager::~InputManager(){
 void InputManager::Update() {
     SDL_Event event;
     SDL_GetMouseState(&mouseX, &mouseY);
+
+    mouseX -= Camera::pos.x;
+    mouseY -= Camera::pos.y;
     
     quitRequested = false;
     ++updateCounter;
