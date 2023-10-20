@@ -71,7 +71,7 @@ void Alien::Render(){
 void Alien::Start(){
     std::weak_ptr<GameObject> weak_alien = Game::GetInstance().GetState().GetObjectPtr(&associated);
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 6; i++){
         GameObject *object_minion = new GameObject();
         Minion *minion = new Minion(*object_minion, weak_alien, (float) i * 360/4);
         object_minion->AddComponent((std::shared_ptr<Minion>)minion);
