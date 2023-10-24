@@ -15,3 +15,12 @@ bool Rect::Contains(Vec2* point) {
     bool isInsideHeight = point->y >= y && point->y <= (h + y);
     return isInsideWidth && isInsideHeight;
 }
+
+void Rect::SetCenter(Vec2 box){
+    this->x = box.x - (this->w / 2);
+    this->y = box.y - (this->h / 2);
+}
+Vec2 Rect::GetCenter(){   
+    Vec2 center = Vec2(this->x + (this->w / 2), this->y + (this->h / 2));
+    return center;
+}

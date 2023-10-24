@@ -1,6 +1,7 @@
 #include "../Headers/Minion.h"
 #include "../Headers/Alien.h"
 #include "../Headers/Game.h"
+#include <iostream>
 float ALIEN_WIDTH =     130;
 float ALIEN_HEIGHT =    163;
 Alien::Action::Action(ActionType type, float x, float y) : type(type), pos(x, y){
@@ -32,7 +33,17 @@ void Alien::Update(float dt) {
         Action& item = taskQueue.front();
 
         if (item.type == SHOOT) {
+            if (!minionArray.empty()) {
+                Vec2 target = taskQueue.front().pos;
+                int randomIndex = rand() % minionArray.size();
+                std::shared_ptr<GameObject> minionObject = minionArray[randomIndex].lock();
+
+                if(minionObject){ 
+                    Minion* teste = (Minion*) minionObject->GetComponent("Minion").get();
+                    teste->Shoot(target);
+                }
             taskQueue.pop();
+            }
 
         } else if (item.type == MOVE) {
             Vec2 targetPosition(item.pos.x - ALIEN_WIDTH/2, item.pos.y -  ALIEN_HEIGHT/2);

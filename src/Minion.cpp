@@ -1,3 +1,5 @@
+#include "../Headers/Game.h"
+#include "../Headers/Bullet.h"
 #include "../Headers/Sprite.h"
 #include "../Headers/Minion.h"
 #include <memory>
@@ -36,4 +38,16 @@ void Minion::Render(){}
 
 bool Minion::Is(std::string type){
     return (type == "Minion");
+}
+void Minion::Shoot(Vec2 target){
+    
+    Vec2 distance = target - Vec2(associated.box.x + (associated.box.w / 2), associated.box.y + (associated.box.h / 2));
+    float angle = atan2(distance.y, distance.x);
+    
+    GameObject* bulletObject = new GameObject();
+    Bullet* bullet = new Bullet(*bulletObject,  angle, 50, 10, distance.Magnitude(), "../DATA/img/minionbullet1.png");
+    bulletObject->AddComponent((std::shared_ptr<Bullet>) bullet);
+    
+    bulletObject->box.SetCenter(associated.box.GetCenter());
+    Game::GetInstance().GetState().AddObject(bulletObject);
 }
