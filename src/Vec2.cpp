@@ -38,3 +38,9 @@ void Vec2::Rotate(float angle) {
     x = newX;
     y = newY;
 }
+
+float Vec2::RotateArgAngle(){   
+    // Return value in degrees
+    float argDeg =  atan2(y, x) * (180 / M_PI);
+    return argDeg;
+}

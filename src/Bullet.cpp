@@ -1,11 +1,13 @@
 #include "../Headers/Bullet.h"
 
-Bullet::Bullet(GameObject& associated, float angle, float speed, int damage, float maxDistance, std::string sprite)
-    : Component(associated), distanceLeft(maxDistance), damage(damage){
-    CalculateSpeed(angle, speed);
+Bullet::Bullet(GameObject& associated, float angle, float speed, int damage, float maxDistance, std::string sprite) 
+: Component::Component(associated),distanceLeft(maxDistance),damage(damage)
+{
 
     Sprite* bullet_sprite = new Sprite(sprite, associated); 
     associated.AddComponent((std::shared_ptr<Sprite>)bullet_sprite);
+    CalculateSpeed(angle,speed);
+    associated.rotationAngle = this->speed.RotateArgAngle();
     
 }
 
@@ -15,9 +17,8 @@ void Bullet::Update(float dt) {
 
     Vec2 movement = speed * dt;
     associated.box.SetCenter(associated.box.GetCenter() + movement);
-    
-    float pace = movement.Magnitude();
-    this->distanceLeft -= pace;
+
+    this->distanceLeft -= movement.Magnitude();
 
     if (this->distanceLeft <= 0) {
         this->associated.RequestDelete();
@@ -33,7 +34,6 @@ bool Bullet::Is(std::string type) {
 }
 
 void Bullet::CalculateSpeed(float angle, float speed) {
-    angle = angle * M_PI / 180.0;
-    this->speed.x = std::cos(angle) * speed;
-    this->speed.y = std::sin(angle) * speed;
+    this->speed.x = cos(angle) * speed;
+    this->speed.y = sin(angle) * speed;
 }

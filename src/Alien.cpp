@@ -19,12 +19,11 @@ Alien::~Alien(){
     }
     minionArray.clear();
 }
-
 void Alien::Update(float dt) {
-    if (InputManager::GetInstance().MousePress(SDL_BUTTON_LEFT)){ 
+    if (InputManager::GetInstance().MousePress(SDL_BUTTON_LEFT)) { 
         taskQueue.emplace(Action(SHOOT, InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY()));
     }
-    else if (InputManager::GetInstance().MousePress(SDL_BUTTON_RIGHT)){
+    else if (InputManager::GetInstance().MousePress(SDL_BUTTON_RIGHT)) {
         taskQueue.emplace(Action(MOVE, InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY()));
     }
     speed.x = 150;
@@ -32,20 +31,29 @@ void Alien::Update(float dt) {
     if (!taskQueue.empty()) {
         Action& item = taskQueue.front();
 
-        if (item.type == SHOOT) {
-            if (!minionArray.empty()) {
-                Vec2 target = taskQueue.front().pos;
-                int randomIndex = rand() % minionArray.size();
-                std::shared_ptr<GameObject> minionObject = minionArray[randomIndex].lock();
+        if (item.type == SHOOT) {   
+            std::shared_ptr<GameObject> closestMinion;
+            Vec2 target = taskQueue.front().pos;
+            float closestDistance = std::numeric_limits<float>::max();
 
-                if(minionObject){ 
-                    Minion* teste = (Minion*) minionObject->GetComponent("Minion").get();
-                    teste->Shoot(target);
+            for (auto& weakMinion : minionArray) {
+                if (auto minion = weakMinion.lock()) {
+                    float distance = (target - minion->box.GetCenter()).Magnitude();
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestMinion = minion;
+                    }
                 }
-            taskQueue.pop();
             }
-
-        } else if (item.type == MOVE) {
+            if (closestMinion) {
+                Minion* minionComponent = static_cast<Minion*>(closestMinion->GetComponent("Minion").get());
+                if (minionComponent) {
+                    minionComponent->Shoot(target);
+                }
+            }
+            taskQueue.pop();
+        
+        }else if (item.type == MOVE) {
             Vec2 targetPosition(item.pos.x - ALIEN_WIDTH/2, item.pos.y -  ALIEN_HEIGHT/2);
             Vec2 direction = (targetPosition - Vec2(associated.box.x, associated.box.y));
             
@@ -82,9 +90,9 @@ void Alien::Render(){
 void Alien::Start(){
     std::weak_ptr<GameObject> weak_alien = Game::GetInstance().GetState().GetObjectPtr(&associated);
 
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 3; i++){
         GameObject *object_minion = new GameObject();
-        Minion *minion = new Minion(*object_minion, weak_alien, (float) i * 360/4);
+        Minion *minion = new Minion(*object_minion, weak_alien, (float) i * 360);
         object_minion->AddComponent((std::shared_ptr<Minion>)minion);
 
         std::weak_ptr<GameObject> weak_minion = Game::GetInstance().GetState().AddObject(object_minion);

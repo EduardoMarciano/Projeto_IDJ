@@ -13,6 +13,7 @@ class Vec2 {
         Vec2 operator*(float scalar) const;
 
         float Magnitude();
+        float RotateArgAngle();
         void Normalize();
         void Rotate(float angle);
 

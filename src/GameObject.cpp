@@ -1,6 +1,6 @@
 #include "../Headers/Component.h"
 
-GameObject::GameObject() : box(0, 0, 0, 0), isDead(false), started(false) {
+GameObject::GameObject() : box(0, 0, 0, 0), isDead(false), started(false), rotationAngle(0) {
 
 }
 
@@ -17,7 +17,6 @@ void GameObject::Update(float dt) {
         components[i]->Update(dt);
     }
 }
-
 void GameObject::Render() {
     for (std::vector<int>::size_type i = 0; i < components.size(); i++){
         components[i]->Render();

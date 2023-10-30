@@ -27,7 +27,7 @@ public:
 
     Rect box;
     bool started;
-
+    float rotationAngle;
 private:
     std::vector<std::shared_ptr<Component>> components;
     bool isDead;

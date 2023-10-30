@@ -38,23 +38,17 @@ void Sprite::SetClip(int x, int y, int w, int h) {
     clipRect.y = y;
     clipRect.w = w;
     clipRect.h = h;
+    
 }
 
 void Sprite::Render() {
     Sprite::Render(associated.box.x, associated.box.y);
 }
 
-void Sprite::Render(int x, int y) {
-
-    SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
-    SDL_Rect dstrect;
-
-    dstrect.x = x + (int)Camera::pos.x;
-    dstrect.y = y + (int)Camera::pos.y;
-    dstrect.w = clipRect.w;
-    dstrect.h = clipRect.h;
-
-    SDL_RenderCopy(renderer, texture, &clipRect, &dstrect);
+void Sprite::Render(int x, int y){
+    SDL_Rect dstLoc = {x + (int)Camera::pos.x, y + (int)Camera::pos.y, clipRect.w, clipRect.h};
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstLoc, 
+    associated.rotationAngle, nullptr, SDL_FLIP_NONE);   
 }
 
 int Sprite::GetWidth() {
