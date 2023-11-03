@@ -59,7 +59,7 @@ Game& Game::GetInstance() {
         return *instance;
     
     }else{
-        instance = new Game("Eduardo Marciano - 211055227", 1280, 720);
+        instance = new Game("Eduardo Marciano - 211055227", 1024, 600);
         return *instance;
     }
 }

@@ -36,12 +36,11 @@ bool Minion::Is(std::string type){
     return (type == "Minion");
 }
 void Minion::Shoot(Vec2 target) {
-    float angle = atan2(target.y - (associated.box.GetCenter().y), target.x - (associated.box.GetCenter().x));
-
+    float angle = atan2(target.y - associated.box.y, target.x - associated.box.x);
+    float distance = sqrt(pow(target.x - associated.box.GetCenter().x, 2) + pow(target.y - associated.box.GetCenter().y, 2));
     GameObject* bulletObject = new GameObject();
-    Bullet* bullet = new Bullet(*bulletObject, angle, 500, 10, 200, "../DATA/img/minionbullet1.png");
+    bulletObject->box =associated.box;
+    Bullet* bullet = new Bullet(*bulletObject, angle, 500, 10, distance, "../DATA/img/minionbullet1.png");
     bulletObject->AddComponent((std::shared_ptr<Bullet>)bullet);
-
-    bulletObject->box.SetCenter(associated.box.GetCenter());
     Game::GetInstance().GetState().AddObject(bulletObject);
 }

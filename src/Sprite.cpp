@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <SDL_image.h>
 #include "../Headers/Game.h"
 #include "../Headers/Sprite.h"
@@ -47,8 +48,9 @@ void Sprite::Render() {
 
 void Sprite::Render(int x, int y){
     SDL_Rect dstLoc = {x + (int)Camera::pos.x, y + (int)Camera::pos.y, clipRect.w, clipRect.h};
+    double degress = associated.rotationAngle * (180.0f / M_PI);
     SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstLoc, 
-    associated.rotationAngle, nullptr, SDL_FLIP_NONE);   
+    degress, nullptr, SDL_FLIP_NONE);   
 }
 
 int Sprite::GetWidth() {
