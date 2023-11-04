@@ -6,18 +6,13 @@
 #include "../Headers/Camera.h"
 #include "../Headers/Resources.h"
 
-
-Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr) {
-    associated.box.h = height;
-    associated.box.w = width;
-
+Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr), scale(1,1), height(0), width(0){
 }
-Sprite::Sprite(const std::string file, GameObject& associated) : Component(associated), texture(nullptr) {
+Sprite::Sprite(const std::string file, GameObject& associated) : Sprite(associated) {
     Open(file);
 }
 
 Sprite::~Sprite() {
-
 }
 
 void Sprite::Open( const std::string file) {
@@ -31,7 +26,10 @@ void Sprite::Open( const std::string file) {
          }
     }
     int queryResult = SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);   
-    SetClip(0, 0, width, height);
+    
+    SetClip(0, 0, GetWidth(), GetHeight());
+    associated.box.h = GetHeight();
+    associated.box.w = GetWidth();
 }
 
 void Sprite::SetClip(int x, int y, int w, int h) {
@@ -39,42 +37,48 @@ void Sprite::SetClip(int x, int y, int w, int h) {
     clipRect.y = y;
     clipRect.w = w;
     clipRect.h = h;
-    
 }
 
 void Sprite::Render() {
-    Sprite::Render(associated.box.x, associated.box.y);
+    SDL_Rect dstrect = {(int)associated.box.x + (int)Camera::pos.x,(int) associated.box.y + (int)Camera::pos.y,(int) associated.box.w,(int) associated.box.h};
+    double degress = associated.rotationAngle * (180.0f / M_PI);
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect, 
+    degress, nullptr, SDL_FLIP_NONE); 
 }
 
 void Sprite::Render(int x, int y){
-    SDL_Rect dstLoc = {x + (int)Camera::pos.x, y + (int)Camera::pos.y, clipRect.w, clipRect.h};
+    SDL_Rect dstrect = {x + (int)Camera::pos.x, y + (int)Camera::pos.y, clipRect.w, clipRect.h};
     double degress = associated.rotationAngle * (180.0f / M_PI);
-    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstLoc, 
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect, 
     degress, nullptr, SDL_FLIP_NONE);   
 }
 
 int Sprite::GetWidth() {
-    return width;
+    return (width)*scale.x;
 }
 
 int Sprite::GetHeight() {
-    return height;
+    return (height)*scale.y;
+}
+
+void Sprite::SetScale(float scaleX, float scaleY){
+    if (scaleX > 0){
+        this->scale.x = scaleX;
+        associated.box.w = associated.box.w * scale.x;
+    }
+    if (scaleY > 0){
+        this->scale.y = scaleY;
+        associated.box.h = associated.box.h * scale.y;
+    }
 }
 
 void Sprite::Update(float teste) {
 }
 
 bool Sprite::IsOpen() {
-    if(texture != nullptr){
-        return true;
-    }else{
-        return false;
-    }
+    return (texture != nullptr);
 }
 
 bool Sprite::Is( std::string type)  {
-    if (type == "Sprite"){
-        return true;
-    }
-    return false;
+    return(type == "Sprite");
 }

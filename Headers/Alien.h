@@ -22,6 +22,7 @@ class Alien: public Component{
         bool Is (std::string type);
     
     private:
+        float arc;
         
         class Action {
             public:

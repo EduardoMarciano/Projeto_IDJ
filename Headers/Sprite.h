@@ -16,7 +16,10 @@ public:
     int GetWidth();
     int GetHeight();
     bool IsOpen();
-     void Render(int x, int y);
+    void Render(int x, int y);
+    
+    Vec2 GetScale ();
+    void SetScale(float scaleX, float scaleY);
 
     //Metodos Herdados de Component
     void Render();
@@ -27,6 +30,7 @@ private:
     // Atributos privados
     int width;
     int height;
+    Vec2 scale;
     SDL_Rect clipRect;
     SDL_Texture* texture;
 };

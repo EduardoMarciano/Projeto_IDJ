@@ -2,8 +2,11 @@
 #include "../Headers/Alien.h"
 #include "../Headers/Game.h"
 #include <iostream>
-float ALIEN_WIDTH =     130;
-float ALIEN_HEIGHT =    163;
+#include <cmath>
+
+const float   ALIEN_WIDTH   = 146;
+const float   ALIEN_HEIGHT  = 163;
+
 Alien::Action::Action(ActionType type, float x, float y) : type(type), pos(x, y){
 }
 
@@ -19,7 +22,22 @@ Alien::~Alien(){
     }
     minionArray.clear();
 }
+
+void Rotation(GameObject* associated){
+    float degress = abs(associated->rotationAngle*(180)/M_PI);
+    if (degress >= 360){
+        degress = 0;
+    }else {
+     degress = degress + 0.001;
+    }
+    associated->rotationAngle = -1*degress*(M_PI/180);
+
+}
+
 void Alien::Update(float dt) {
+
+    Rotation(&associated);
+
     if (InputManager::GetInstance().MousePress(SDL_BUTTON_LEFT)) { 
         taskQueue.emplace(Action(SHOOT, InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY()));
     }
@@ -31,7 +49,7 @@ void Alien::Update(float dt) {
     if (!taskQueue.empty()) {
         Action& item = taskQueue.front();
 
-        if (item.type == SHOOT) {   
+        if (item.type == SHOOT) {
             std::shared_ptr<GameObject> closestMinion;
             Vec2 target = taskQueue.front().pos;
             float closestDistance = std::numeric_limits<float>::max();
@@ -54,7 +72,7 @@ void Alien::Update(float dt) {
             taskQueue.pop();
         
         }else if (item.type == MOVE) {
-            Vec2 targetPosition(item.pos.x - ALIEN_WIDTH/2, item.pos.y -  ALIEN_HEIGHT/2);
+            Vec2 targetPosition(item.pos.x - ALIEN_WIDTH/2, item.pos.y - ALIEN_HEIGHT/2);
             Vec2 direction = (targetPosition - Vec2(associated.box.x, associated.box.y));
             
             direction.Normalize();
@@ -63,12 +81,8 @@ void Alien::Update(float dt) {
             float moveDistance = speed.Magnitude() * dt;
 
             if (distance <= moveDistance) {
-
-                associated.box.x = targetPosition.x - associated.box.w / 2;
-                associated.box.y = targetPosition.y - associated.box.h / 2;
                 taskQueue.pop();
             } else {
-
                 Vec2 velocity = direction * (speed.Magnitude() * dt);
                 associated.box.x += velocity.x;
                 associated.box.y += velocity.y;

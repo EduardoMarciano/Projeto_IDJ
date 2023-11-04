@@ -15,6 +15,7 @@ class Minion : public Component{
     
     private:
         float arc;
+        float radius;
         std::weak_ptr<GameObject> alienCenter;
 };
 
