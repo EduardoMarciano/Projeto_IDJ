@@ -1,5 +1,5 @@
-#include "../Headers/Resources.h"
 #include "../Headers/Game.h"
+#include "../Headers/Resources.h"
 
 std::unordered_map<std::string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<std::string, Mix_Music*> Resources::musicTable;

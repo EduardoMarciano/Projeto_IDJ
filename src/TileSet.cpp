@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../Headers/TileSet.h"
-#include "SDL_endian.h"
 
 TileSet::TileSet (int Width,    int Height, std::string file){
     GameObject *object = new GameObject();

@@ -102,14 +102,13 @@ void Alien::Render(){
 }
 
 void Alien::Start(){
-    std::weak_ptr<GameObject> weak_alien = Game::GetInstance().GetState().GetObjectPtr(&associated);
+    std::weak_ptr<GameObject> weak_alien = Game::GetInstance().GetCurrentState().GetObjectPtr(&associated);
 
     for (int i = 0; i < 3; i++){
         GameObject *object_minion = new GameObject();
         Minion *minion = new Minion(*object_minion, weak_alien, (float) i * 360);
         object_minion->AddComponent((std::shared_ptr<Minion>)minion);
-
-        std::weak_ptr<GameObject> weak_minion = Game::GetInstance().GetState().AddObject(object_minion);
+        std::weak_ptr<GameObject> weak_minion = Game::GetInstance().GetCurrentState().AddObject(object_minion);
         minionArray.push_back(weak_minion);
     }
 }

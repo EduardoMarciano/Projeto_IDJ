@@ -47,6 +47,5 @@ void Minion::Shoot(Vec2 target) {
 
     Bullet* bullet = new Bullet(*bulletObject, angle, 500, 10, distance, "../DATA/img/minionbullet1.png");
     bulletObject->AddComponent((std::shared_ptr<Bullet>)bullet);
-    
-    Game::GetInstance().GetState().AddObject(bulletObject);
+    std::weak_ptr<GameObject> weak_bullet = Game::GetInstance().GetCurrentState().AddObject(bulletObject);
 }
