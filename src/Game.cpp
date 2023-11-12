@@ -39,17 +39,15 @@ void Game::Push(State *state){
 void Game::Run() {
     if(storedState){
         stateStack.push((std::unique_ptr<State>)storedState);
-        storedState->Start();
+        stateStack.top()->Start();
         storedState = nullptr;
-    }else{
-        return;
     }
     while ((!stateStack.empty())) {
         
         if(stateStack.top()->QuitRequested()){
             break;
         }
-        else if(stateStack.top()->PopRequested()){
+        if(stateStack.top()->PopRequested()){
             stateStack.top()->Pause();
             stateStack.pop();
             
@@ -57,7 +55,7 @@ void Game::Run() {
                 stateStack.top()->Resume();
             }
         }
-        else if(storedState){
+        if(storedState){
             if(!stateStack.empty()){
             stateStack.top()->Pause();
             }

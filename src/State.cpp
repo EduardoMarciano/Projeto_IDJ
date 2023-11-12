@@ -1,5 +1,4 @@
 #include "../Headers/State.h"
-#include <memory>
 
 State::State() : popRequested(false), quitRequested(false), started(false){
 
@@ -33,8 +32,8 @@ std::weak_ptr<GameObject> State::AddObject(GameObject *go){
 }
 
 void State::StartArray(){
-    for(std::shared_ptr<GameObject> gameObject: objectArray){
-        gameObject->Start();
+    for(auto& teste: objectArray){
+        teste->Start();
     }
 }
 

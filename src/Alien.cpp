@@ -1,8 +1,9 @@
+#include <cmath>
+#include <iostream>
+
 #include "../Headers/Minion.h"
 #include "../Headers/Alien.h"
 #include "../Headers/Game.h"
-#include <iostream>
-#include <cmath>
 
 const float   ALIEN_WIDTH   = 146;
 const float   ALIEN_HEIGHT  = 163;
@@ -110,5 +111,6 @@ void Alien::Start(){
         object_minion->AddComponent((std::shared_ptr<Minion>)minion);
         std::weak_ptr<GameObject> weak_minion = Game::GetInstance().GetCurrentState().AddObject(object_minion);
         minionArray.push_back(weak_minion);
+        std::cout << "Alien START MINION: " << i << std::endl;
     }
 }

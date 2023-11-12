@@ -6,11 +6,12 @@
 #include "../Headers/TileMap.h"
 #include "../Headers/InputManager.h"
 #include "../Headers/CameraFollower.h"
+#include <iostream>
 
-StageState:: StageState() : quitRequested(false), started(false){
+StageState:: StageState() : State(), quitRequested(false), started(false){
 	GameObject *object = new GameObject();
 	Sprite *backGround = new Sprite("../DATA/img/ocean.jpg", *object);
-	music  = new Music("../DATA/audio/stageState.ogg");
+	backgroundMusic  = new Music("../DATA/audio/stageState.ogg");
     object->AddComponent((std::shared_ptr<Sprite>)  backGround);
 
     CameraFollower *cameraFollower = new CameraFollower(*object);
@@ -35,11 +36,11 @@ StageState:: StageState() : quitRequested(false), started(false){
     alienObject->box.y = 300;
     Alien* alienComponent = new Alien(*alienObject, 0);
     alienObject->AddComponent(std::shared_ptr<Alien>(alienComponent));
-
+    
     objectArray.emplace_back(object);
     objectArray.emplace_back(map);
     objectArray.emplace_back(alienObject);
-    music->Play(-1);
+    backgroundMusic->Play(-1);
 }
 
 StageState::~StageState(){
@@ -61,6 +62,8 @@ void StageState::Update(float dt) {
         }
     }
 }
+void StageState::LoadAssets(){
+}
 
 void StageState::Render() {
     
@@ -73,13 +76,15 @@ void StageState::Start(){
     LoadAssets();
     for (int i = 0; i < (int)objectArray.size(); i++){
         objectArray[i]->Start();
+        std::cout<<objectArray[i]<<std::endl;
     }
+    std::cout<<objectArray.size()<<std::endl;
     started = true;
 }
 void StageState::Pause(){
-    music->Stop(0);
+    backgroundMusic->Stop(0);
 }
 
 void StageState::Resume(){
-    music->Play();
+    backgroundMusic->Play();
 }

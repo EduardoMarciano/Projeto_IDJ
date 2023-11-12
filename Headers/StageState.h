@@ -4,7 +4,7 @@
 #include "Music.h"
 #include "State.h"
 
-class StageState : State {
+class StageState : public State {
 public:
     StageState();
     ~StageState();
@@ -13,10 +13,11 @@ public:
     void Pause();
     void Resume();
     void Render();
+    void LoadAssets();
     void Update(float dt);
 
 private:
-    Music* music;
+    Music* backgroundMusic;
     bool started;
     bool quitRequested;
     std::vector< std::shared_ptr<GameObject>> objectArray;
