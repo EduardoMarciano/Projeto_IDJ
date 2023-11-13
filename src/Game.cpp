@@ -2,6 +2,7 @@
 #include "../Headers/Game.h"
 #include "../Headers/Resources.h"
 #include "../Headers/InputManager.h"
+#include "SDL_ttf.h"
 
 Game* Game::instance = nullptr;
 
@@ -70,6 +71,7 @@ void Game::Run() {
         SDL_RenderPresent(renderer);
         SDL_Delay(dt);
     }
+    Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearMusics();
     Resources::ClearSounds();
@@ -119,6 +121,13 @@ void Game::InitializeSDL() {
     } else {
         Mix_AllocateChannels(32);
     }
+
+    int resultadoTTF = TTF_Init();
+
+    if(resultadoTTF != 0){
+        std::cerr << "Erro ao iniciar a SDL_ttf: " << TTF_GetError() << std::endl;
+    }
+
 }
 
 void Game::CleanupSDL() {
@@ -136,6 +145,7 @@ void Game::CleanupSDL() {
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
+    TTF_Quit();
     Resources::ClearImages();
     Resources::ClearMusics();
     Resources::ClearSounds();

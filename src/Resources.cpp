@@ -1,5 +1,8 @@
 #include "../Headers/Game.h"
 #include "../Headers/Resources.h"
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
+#include <iostream>
 
 std::unordered_map<std::string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<std::string, Mix_Music*> Resources::musicTable;
@@ -48,6 +51,26 @@ Mix_Music* Resources::GetMusic(std::string file){
     }
 }
 
+TTF_Font* Resources::GetFont(std::string file, int fontSize) {
+        std::string key = file + std::to_string(fontSize);
+
+        auto pair = fontTable.find(key);
+        if (pair != fontTable.end()) {
+            return pair->second;
+
+        } else {
+            TTF_Font* font = TTF_OpenFont(file.c_str(), fontSize);
+            
+            if (!font) {
+                std::cerr << "Erro ao carregar a fonte: " << TTF_GetError() << std::endl;
+                return nullptr;
+            }
+            fontTable[key] = font;
+
+            return font;
+        }
+}
+
 void Resources::ClearImages(){
     for (auto pair : imageTable) {
         SDL_Texture* texture = pair.second;
@@ -71,3 +94,10 @@ void Resources::ClearMusics(){
     }  
     musicTable.clear();
 }
+void Resources::ClearFonts(){
+    for (auto pair : fontTable) {
+         TTF_Font* fonte = pair.second;
+         TTF_CloseFont (fonte);
+    }  
+    musicTable.clear();
+};

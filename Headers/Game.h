@@ -6,6 +6,7 @@
 #include <stack>
 #include <memory>
 #include "State.h"
+#include "SDL_ttf.h"
 
 class Game {
 public:
