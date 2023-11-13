@@ -3,6 +3,7 @@
 
 #include "Music.h"
 #include "State.h"
+#include "Game.h"
 
 class StageState : public State {
 public:

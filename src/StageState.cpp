@@ -51,7 +51,7 @@ void StageState::Update(float dt) {
     Camera::Update(dt);
 
     if ((InputManager::GetInstance().KeyPress(ESCAPE_KEY)) || (InputManager::GetInstance().QuitRequested())){
-        quitRequested = true;
+        popRequested = true;
     }
     for (int i = 0; i < objectArray.size(); i++) {
         objectArray[i]->Update(dt);
