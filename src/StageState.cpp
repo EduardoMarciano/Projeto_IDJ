@@ -8,7 +8,7 @@
 #include "../Headers/CameraFollower.h"
 #include <iostream>
 
-StageState:: StageState() : State(), quitRequested(false), started(false){
+StageState:: StageState() : State(){
 	GameObject *object = new GameObject();
 	Sprite *backGround = new Sprite("../DATA/img/ocean.jpg", *object);
 	backgroundMusic  = new Music("../DATA/audio/stageState.ogg");
@@ -76,9 +76,7 @@ void StageState::Start(){
     LoadAssets();
     for (int i = 0; i < (int)objectArray.size(); i++){
         objectArray[i]->Start();
-        std::cout<<objectArray[i]<<std::endl;
     }
-    std::cout<<objectArray.size()<<std::endl;
     started = true;
 }
 void StageState::Pause(){

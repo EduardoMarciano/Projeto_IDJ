@@ -68,8 +68,7 @@ InputManager& InputManager::GetInstance(){
 }
 
 int InputManager::GetMouseX(){
-    return mouseX;
-    
+    return mouseX;   
 }
 
 int InputManager::GetMouseY(){

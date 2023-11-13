@@ -1,4 +1,6 @@
 #include "../Headers/State.h"
+#include <iostream>
+#include <ostream>
 
 State::State() : popRequested(false), quitRequested(false), started(false){
 
@@ -16,7 +18,6 @@ std::weak_ptr<GameObject> State::AddObject(GameObject *go){
         shared_version->Start();
     }
     std::weak_ptr <GameObject> weak_version(shared_version);
-
     return weak_version;
 
 }

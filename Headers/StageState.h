@@ -18,9 +18,6 @@ public:
 
 private:
     Music* backgroundMusic;
-    bool started;
-    bool quitRequested;
-    std::vector< std::shared_ptr<GameObject>> objectArray;
 };
 
 #endif
