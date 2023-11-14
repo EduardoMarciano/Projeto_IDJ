@@ -6,7 +6,9 @@
 #include "../Headers/TileMap.h"
 #include "../Headers/InputManager.h"
 #include "../Headers/CameraFollower.h"
+#include "../Headers/GameData.h"
 #include <iostream>
+#include "../Headers/EndState.h"
 
 StageState:: StageState() : State(){
 	GameObject *object = new GameObject();
@@ -36,10 +38,17 @@ StageState:: StageState() : State(){
     alienObject->box.y = 300;
     Alien* alienComponent = new Alien(*alienObject, 0);
     alienObject->AddComponent(std::shared_ptr<Alien>(alienComponent));
-    
+
+    std::string message ="Aperte epaço para Vencer e em ESC para Perder";
+    GameObject* textObj = new GameObject();
+    Text* text = new Text(*textObj, "../DATA/Font/basicFont.ttf", 32, TextStyle::BLENDED,message, {200, 200, 200});
+    textObj->box.SetCenter(Vec2((float)(Game::GetInstance().GetWidth())/2, (float)(Game::GetInstance().GetHeight())/12));
+    textObj ->AddComponent((std::shared_ptr<Text>) text);
+
     objectArray.emplace_back(object);
     objectArray.emplace_back(map);
     objectArray.emplace_back(alienObject);
+    objectArray.emplace_back(textObj);
     backgroundMusic->Play(-1);
 }
 
@@ -50,13 +59,25 @@ StageState::~StageState(){
 void StageState::Update(float dt) {
     Camera::Update(dt);
 
-    if ((InputManager::GetInstance().KeyPress(ESCAPE_KEY))){
-        popRequested = true;
-    } 
-    
     if(InputManager::GetInstance().QuitRequested()){
         quitRequested = true;
     }
+    
+    if (InputManager::GetInstance().KeyPress(ESCAPE_KEY)) {
+        GameData::playerVictory = false;
+        popRequested = true;
+        EndState* lost = new EndState();
+
+        Game::GetInstance().Push(lost);
+        
+    }
+    if (InputManager::GetInstance().KeyPress(32)) {
+        GameData::playerVictory = true;
+        popRequested = true;
+        EndState* win = new EndState();
+        Game::GetInstance().Push(win);
+    }
+
     for (int i = 0; i < objectArray.size(); i++) {
         objectArray[i]->Update(dt);
     }

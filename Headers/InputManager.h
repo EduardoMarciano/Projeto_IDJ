@@ -1,10 +1,13 @@
 #ifndef InputManager_H
 #define InputManager_H
 
-#define LEFT_ARROW_KEY      SDLK_LEFT
-#define RIGHT_ARROW_KEY     SDLK_RIGHT
+#define KEY_F  'f'
+#define KEY_G  'g'
+
 #define UP_ARROW_KEY        SDLK_UP
+#define LEFT_ARROW_KEY      SDLK_LEFT
 #define DOWN_ARROW_KEY      SDLK_DOWN
+#define RIGHT_ARROW_KEY     SDLK_RIGHT
 #define ESCAPE_KEY          SDLK_ESCAPE
 #define LEFT_MOUSE_BUTTON   SDL_BUTTON_LEFT
 #define SPACEBAR_KEY 32

@@ -5,7 +5,6 @@
 #include "SDL_render.h"
 #include "../Headers/Game.h"
 #include "../Headers/Text.h"
-#include "../Headers/Camera.h"
 #include "../Headers/Resources.h"
 
 
@@ -53,8 +52,8 @@ void Text::Render(){
     if (elapsedTime > 0) {
         SDL_Rect clipRect = {0, 0,(int) associated.box.w,(int) associated.box.h};
         SDL_Rect destRect = {
-            (int)(associated.box.x - Camera::pos.x),
-            (int)(associated.box.y - Camera::pos.y),
+            (int)(associated.box.x),
+            (int)(associated.box.y),
             (int)associated.box.w,
             (int)associated.box.h
     };
