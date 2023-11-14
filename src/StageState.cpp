@@ -39,7 +39,7 @@ StageState:: StageState() : State(){
     Alien* alienComponent = new Alien(*alienObject, 0);
     alienObject->AddComponent(std::shared_ptr<Alien>(alienComponent));
 
-    std::string message ="Aperte epaço para Vencer e em ESC para Perder";
+    std::string message ="Aperte epaco para Vencer e em ESC para Perder";
     GameObject* textObj = new GameObject();
     Text* text = new Text(*textObj, "../DATA/Font/basicFont.ttf", 32, TextStyle::BLENDED,message, {200, 200, 200});
     textObj->box.SetCenter(Vec2((float)(Game::GetInstance().GetWidth())/2, (float)(Game::GetInstance().GetHeight())/12));
