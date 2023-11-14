@@ -6,7 +6,7 @@
 
 Game* Game::instance = nullptr;
 
-Game::Game(std::string title, int width, int height) : dt(0.0f), frameStart(0), 
+Game::Game(std::string title, int width, int height) : width(width), height(height), dt(0.0f), frameStart(0), 
     storedState(nullptr), window(nullptr), renderer(nullptr)  {
     
     if (Game::instance != nullptr) {
@@ -17,7 +17,7 @@ Game::Game(std::string title, int width, int height) : dt(0.0f), frameStart(0),
     //Inicializa todas as dependências vinculadas a SDL
     InitializeSDL();
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, GetWidth(), GetHeight(), 0);
     if (window == nullptr) {
         std::cerr << "Erro ao criar a janela: " << SDL_GetError() << std::endl;
     }
@@ -146,6 +146,7 @@ void Game::CleanupSDL() {
     IMG_Quit();
     SDL_Quit();
     TTF_Quit();
+    Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearMusics();
     Resources::ClearSounds();
@@ -160,4 +161,11 @@ void Game::CalculateDeltaTime() {
 
 float Game::GetDeltaTime(){
     return dt;
+}
+int Game::GetHeight(){
+    return this->height;
+}
+
+int Game::GetWidth(){
+    return this->width;
 }

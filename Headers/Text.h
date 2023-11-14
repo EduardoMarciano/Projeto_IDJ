@@ -1,6 +1,7 @@
 #ifndef Text_h
 #define Text_h
 
+#include "Component.h"
 #include "GameObject.h"
 #include "SDL_render.h"
 #include "SDL_ttf.h"
@@ -8,7 +9,7 @@
 
 enum TextStyle {SOLID, SHADED, BLENDED};
 
-class Text {
+class Text : public Component {
 public:
     Text(GameObject& associated, std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color);
     ~Text();
@@ -25,10 +26,14 @@ public:
 
 private:
     void RemakeTexture();
-
     int fontSize;
 
-    TTF_Font* fonte;
+    bool waiting = false; 
+    float waitTime = 2.0F;
+    float elapsedTime = 2.0F;
+    float blinkInterval = 2.0F;
+
+    TTF_Font* font;
     SDL_Color color;
     TextStyle style;
     std::string text;

@@ -19,6 +19,9 @@ public:
     void CleanupSDL();
     void InitializeSDL();
     
+    int GetWidth();
+    int GetHeight();
+    
     float GetDeltaTime();    
     State& GetCurrentState();
     static Game& GetInstance();
@@ -28,7 +31,8 @@ private:
 
     float dt;
     int frameStart;
-
+    int width;
+    int height;
 
     State* storedState;
     SDL_Window* window;

@@ -4,9 +4,10 @@
 #include "SDL_ttf.h"
 #include <iostream>
 
-std::unordered_map<std::string, Mix_Chunk*> Resources::soundTable;
-std::unordered_map<std::string, Mix_Music*> Resources::musicTable;
-std::unordered_map<std::string, SDL_Texture*> Resources::imageTable;
+std::unordered_map<std::string, SDL_Texture *> Resources::imageTable;
+std::unordered_map<std::string, Mix_Music *> Resources::musicTable;
+std::unordered_map<std::string, Mix_Chunk *> Resources::soundTable;
+std::unordered_map<std::string, TTF_Font *> Resources::fontTable;
 
 SDL_Texture* Resources::GetImage(std::string file){
     SDL_Texture* texture;
@@ -99,5 +100,5 @@ void Resources::ClearFonts(){
          TTF_Font* fonte = pair.second;
          TTF_CloseFont (fonte);
     }  
-    musicTable.clear();
+    fontTable.clear();
 };
