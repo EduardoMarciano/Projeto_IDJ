@@ -1,6 +1,5 @@
 #include "../Headers/Camera.h"
 #include "../Headers/InputManager.h"
-#include <SDL2/SDL.h>
 
 InputManager::InputManager() : mouseX(0), mouseY(0), updateCounter(0), quitRequested(false) {
     for (int i = 0; i < 6; ++i) {
@@ -69,8 +68,7 @@ InputManager& InputManager::GetInstance(){
 }
 
 int InputManager::GetMouseX(){
-    return mouseX;
-    
+    return mouseX;   
 }
 
 int InputManager::GetMouseY(){

@@ -34,7 +34,6 @@ void Camera::Update(float dt) {
         else if(InputManager::GetInstance().IsKeyDown(DOWN_ARROW_KEY)){
             speed.y = -velocidade;
         }
-
         pos.x += dt * speed.x;
         pos.y += dt * speed.y;
     }

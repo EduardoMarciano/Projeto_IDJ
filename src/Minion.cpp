@@ -2,6 +2,7 @@
 #include "../Headers/Bullet.h"
 #include "../Headers/Sprite.h"
 #include "../Headers/Minion.h"
+#include <iostream>
 #include <memory>
 #include <cmath>
 
@@ -47,6 +48,5 @@ void Minion::Shoot(Vec2 target) {
 
     Bullet* bullet = new Bullet(*bulletObject, angle, 500, 10, distance, "../DATA/img/minionbullet1.png");
     bulletObject->AddComponent((std::shared_ptr<Bullet>)bullet);
-    
-    Game::GetInstance().GetState().AddObject(bulletObject);
+    Game::GetInstance().GetCurrentState().AddObject(bulletObject);
 }

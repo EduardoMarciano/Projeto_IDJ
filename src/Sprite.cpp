@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <SDL_image.h>
 #include "../Headers/Game.h"
 #include "../Headers/Sprite.h"
 #include "../Headers/Camera.h"

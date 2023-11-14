@@ -1,57 +1,80 @@
 #include <iostream>
-#include <SDL_image.h>
-#include <SDL_mixer.h> 
-#include <SDL_ttf.h>
 #include "../Headers/Game.h"
 #include "../Headers/Resources.h"
 #include "../Headers/InputManager.h"
+#include "SDL_ttf.h"
+
 Game* Game::instance = nullptr;
 
-Game::Game(const std::string& title, int width, int height) : dt(0.0f), frameStart(0) {
-    // cria ou reenvia a intanciação do jogo
-    if (instance != nullptr) {
+Game::Game(std::string title, int width, int height) : width(width), height(height), dt(0.0f), frameStart(0), 
+    storedState(nullptr), window(nullptr), renderer(nullptr)  {
+    
+    if (Game::instance != nullptr) {
         std::cerr << "Erro: Já existe uma instância da classe Game em execução." << std::endl;
     } else {
-        instance = this;
+        Game::instance = this;
     }
     //Inicializa todas as dependências vinculadas a SDL
     InitializeSDL();
 
-    //Criando a janela
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
-
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, GetWidth(), GetHeight(), 0);
     if (window == nullptr) {
         std::cerr << "Erro ao criar a janela: " << SDL_GetError() << std::endl;
     }
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    //Criando o renderizador
     if (renderer == nullptr) {
         std::cerr << "Erro ao criar o renderizador: " << SDL_GetError() << std::endl;
-
-
     }
-
-    state = new State(); 
     srand(time(NULL));
-
 }
 
 Game::~Game() {
-    //Limpa a SDL   
     CleanupSDL();
 }
 
+void Game::Push(State *state){
+    storedState = state;
+}
+
 void Game::Run() {
-    state->Start();
-    while (!state->QuitRequested()) {
+    if(storedState){
+        stateStack.push((std::unique_ptr<State>)storedState);
+        stateStack.top()->Start();
+        storedState = nullptr;
+    }
+    while ((!stateStack.empty())) {
         
+        if(stateStack.top()->QuitRequested()){
+            break;
+        }
+        if(stateStack.top()->PopRequested()){
+            stateStack.top()->Pause();
+            stateStack.pop();
+            
+            if(!stateStack.empty()){
+                stateStack.top()->Resume();
+            }
+        }
+        if(storedState){
+            if(!stateStack.empty()){
+            stateStack.top()->Pause();
+            }
+            stateStack.push((std::unique_ptr<State>) storedState);
+            stateStack.top()->Start();
+            storedState = nullptr;
+        }
         CalculateDeltaTime();
-        state->Update(dt);
+        stateStack.top()->Update(dt);
         InputManager::GetInstance().Update();
-        state->Render();
+        stateStack.top()->Render();
         SDL_RenderPresent(renderer);
         SDL_Delay(dt);
     }
+    Resources::ClearFonts();
+    Resources::ClearImages();
+    Resources::ClearMusics();
+    Resources::ClearSounds();
 }
 
 Game& Game::GetInstance() {
@@ -64,8 +87,8 @@ Game& Game::GetInstance() {
     }
 }
 
-State& Game::GetState() {
-    return *state;
+State& Game::GetCurrentState() {
+    return *stateStack.top();
 }
 
 SDL_Renderer* Game::GetRenderer() {
@@ -98,17 +121,32 @@ void Game::InitializeSDL() {
     } else {
         Mix_AllocateChannels(32);
     }
+
+    int resultadoTTF = TTF_Init();
+
+    if(resultadoTTF != 0){
+        std::cerr << "Erro ao iniciar a SDL_ttf: " << TTF_GetError() << std::endl;
+    }
+
 }
 
 void Game::CleanupSDL() {
+    if(storedState){
+        delete storedState;
+        storedState = nullptr;
+    }
+    while(!stateStack.empty()){
+        stateStack.pop();
+    }
 
-    delete state;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     Mix_CloseAudio();
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
+    TTF_Quit();
+    Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearMusics();
     Resources::ClearSounds();
@@ -119,9 +157,15 @@ void Game::CalculateDeltaTime() {
     Uint32 frameTicks = frameEnd - frameStart;
     frameStart = frameEnd;
     dt = static_cast<float>(frameTicks) / 1000.0f;
-
 }
 
 float Game::GetDeltaTime(){
     return dt;
+}
+int Game::GetHeight(){
+    return this->height;
+}
+
+int Game::GetWidth(){
+    return this->width;
 }

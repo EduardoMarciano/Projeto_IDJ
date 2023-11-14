@@ -1,5 +1,4 @@
 #include "../Headers/Vec2.h"
-#include <cmath>
 
 Vec2::Vec2(float xrec, float yrec){
     x = xrec;
