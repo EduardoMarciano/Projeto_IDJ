@@ -24,7 +24,7 @@ void Sprite::Open( const std::string file) {
         return;
          }
     }
-    int queryResult = SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);   
+    int queryResult = SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);   
     
     SetClip(0, 0, GetWidth(), GetHeight());
     associated.box.h = GetHeight();
@@ -41,14 +41,14 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 void Sprite::Render() {
     SDL_Rect dstrect = {(int)associated.box.x + (int)Camera::pos.x,(int) associated.box.y + (int)Camera::pos.y,(int) associated.box.w,(int) associated.box.h};
     double degress = associated.rotationAngle * (180.0f / M_PI);
-    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect, 
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture.get(), &clipRect, &dstrect, 
     degress, nullptr, SDL_FLIP_NONE); 
 }
 
 void Sprite::Render(int x, int y){
     SDL_Rect dstrect = {x + (int)Camera::pos.x, y + (int)Camera::pos.y, clipRect.w, clipRect.h};
     double degress = associated.rotationAngle * (180.0f / M_PI);
-    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect, 
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture.get(), &clipRect, &dstrect, 
     degress, nullptr, SDL_FLIP_NONE);   
 }
 

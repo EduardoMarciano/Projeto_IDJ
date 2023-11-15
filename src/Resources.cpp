@@ -1,104 +1,142 @@
-#include "../Headers/Game.h"
 #include "../Headers/Resources.h"
-#include "SDL_mixer.h"
-#include "SDL_ttf.h"
-#include <iostream>
 
-std::unordered_map<std::string, SDL_Texture *> Resources::imageTable;
-std::unordered_map<std::string, Mix_Music *> Resources::musicTable;
-std::unordered_map<std::string, Mix_Chunk *> Resources::soundTable;
-std::unordered_map<std::string, TTF_Font *> Resources::fontTable;
+std::unordered_map<std::string, std::shared_ptr<TTF_Font>> Resources::fontTable;
+std::unordered_map<std::string, std::shared_ptr<Mix_Chunk>> Resources::soundTable;
+std::unordered_map<std::string, std::shared_ptr<Mix_Music>> Resources::musicTable;
+std::unordered_map<std::string, std::shared_ptr<SDL_Texture>> Resources::imageTable;
 
-SDL_Texture* Resources::GetImage(std::string file){
-    SDL_Texture* texture;
 
-    auto pair = imageTable.find(file);
-    if (pair != imageTable.end()){ 
-        texture = pair->second;
-        return texture;
-    }else{
-        texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
-        imageTable[file] = texture;
-        return texture;
-    }
-}
+std::shared_ptr<SDL_Texture> Resources::GetImage(std::string file) {
+    auto it = imageTable.find(file);
 
-Mix_Chunk* Resources::GetSound(std::string file){
-    Mix_Chunk* chunk;
+    if (it != imageTable.end()) {
+        return it->second;
+    } else {
+        SDL_Texture* texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
 
-    auto pair = soundTable.find(file);
-    if(pair != soundTable.end()){
-        chunk = pair->second;
-        return chunk;
-    }else{
-        chunk = Mix_LoadWAV(file.c_str());
-        soundTable[file] = chunk;
-        return chunk;
-
-    }
-}
-
-Mix_Music* Resources::GetMusic(std::string file){
-    Mix_Music* music;
-
-    auto pair = musicTable.find(file);
-    if(pair != musicTable.end()){
-        music = pair->second;
-        return music;
-    }else{
-        music = Mix_LoadMUS(file.c_str());
-        musicTable[file] = music;
-        return music;
-    }
-}
-
-TTF_Font* Resources::GetFont(std::string file, int fontSize) {
-        std::string key = file + std::to_string(fontSize);
-
-        auto pair = fontTable.find(key);
-        if (pair != fontTable.end()) {
-            return pair->second;
-
-        } else {
-            TTF_Font* font = TTF_OpenFont(file.c_str(), fontSize);
-            
-            if (!font) {
-                std::cerr << "Erro ao carregar a fonte: " << TTF_GetError() << std::endl;
-                return nullptr;
-            }
-            fontTable[key] = font;
-
-            return font;
+        if (texture == nullptr) {
+            std::cerr << "Erro ao carregar textura: " << SDL_GetError() << std::endl;
+            return nullptr;
         }
+
+        std::shared_ptr<SDL_Texture> sharedTexture(texture, [](SDL_Texture* texture) {
+            SDL_DestroyTexture(texture);
+        });
+
+        imageTable[file] = sharedTexture;
+        return sharedTexture;
+    }
 }
 
-void Resources::ClearImages(){
-    for (auto pair : imageTable) {
-        SDL_Texture* texture = pair.second;
-         SDL_DestroyTexture(texture);
+std::shared_ptr<Mix_Chunk> Resources::GetSound(std::string file) {
+    auto it = soundTable.find(file);
+
+    if (it != soundTable.end()) {
+        return it->second;
+    } else {
+        Mix_Chunk* chunk = Mix_LoadWAV(file.c_str());
+
+        if (!chunk) {
+            std::cerr << "Erro ao carregar som: " << Mix_GetError() << std::endl;
+            return nullptr;
+        }
+
+        std::shared_ptr<Mix_Chunk> sharedChunk(chunk, [](Mix_Chunk* chunk) {
+            Mix_FreeChunk(chunk);
+        });
+
+        soundTable[file] = sharedChunk;
+        return sharedChunk;
     }
-    imageTable.clear();
+}
+
+std::shared_ptr<Mix_Music> Resources::GetMusic(std::string file) {
+    auto it = musicTable.find(file);
+
+    if (it != musicTable.end()) {
+        return it->second;
+    } else {
+        Mix_Music* music = Mix_LoadMUS(file.c_str());
+
+        if (!music) {
+            std::cerr << "Erro ao carregar música: " << Mix_GetError() << std::endl;
+            return nullptr;
+        }
+
+        std::shared_ptr<Mix_Music> sharedMusic(music, [](Mix_Music* music) {
+            Mix_FreeMusic(music);
+        });
+
+        musicTable[file] = sharedMusic;
+        return sharedMusic;
+    }
+}
+
+std::shared_ptr<TTF_Font> Resources::GetFont(std::string file, int fontSize) {
+    std::string key = file + std::to_string(fontSize);
+    auto it = fontTable.find(key);
+
+    if (it != fontTable.end()) {
+        return it->second;
+    } else {
+        TTF_Font* font = TTF_OpenFont(file.c_str(), fontSize);
+
+        if (!font) {
+            std::cerr << "Erro ao carregar a fonte: " << TTF_GetError() << std::endl;
+            return nullptr;
+        }
+
+        std::shared_ptr<TTF_Font> sharedFont(font, [](TTF_Font* font) {
+            TTF_CloseFont(font);
+        });
+
+        fontTable[key] = sharedFont;
+        return sharedFont;
+    }
+}
+
+void Resources::ClearImages() {
+    auto it = imageTable.begin();
+    while (it != imageTable.end()) {
+        if (it->second.use_count() == 1) {
+            it = imageTable.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
     
-void Resources::ClearSounds(){
-     for (auto pair : soundTable) {
-        Mix_Chunk* chunk = pair.second;
-        Mix_FreeChunk(chunk);
+void Resources::ClearSounds() {
+    auto it = soundTable.begin();
+
+    while (it != soundTable.end()) {
+        if (it->second.use_count() == 1) {
+            it = soundTable.erase(it);
+        } else {
+            ++it;
+        }
     }
-     soundTable.clear();
 }
 
-void Resources::ClearMusics(){
-     for (auto pair : musicTable) {
-         Mix_Music* music = pair.second;
-         Mix_FreeMusic(music);
-    }  
-    musicTable.clear();
+void Resources::ClearMusics() {
+    auto it = musicTable.begin();
+
+    while (it != musicTable.end()) {
+        if (it->second.use_count() == 1) {
+            it = musicTable.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
-void Resources::ClearFonts(){
-    for (auto pair : fontTable) {
-         TTF_Font* fonte = pair.second;
-         TTF_CloseFont (fonte);
-    }  
-    fontTable.clear();
-};
+void Resources::ClearFonts() {
+    auto it = fontTable.begin();
+
+    while (it != fontTable.end()) {
+        if (it->second.use_count() == 1) {
+            it = fontTable.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}

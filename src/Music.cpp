@@ -22,9 +22,9 @@ void Music::Stop(int msToStop) {
 }
 
 void Music::Open(const std::string& file) {
-    music = Resources::GetMusic(file.c_str());
+    music = Resources::GetMusic(file.c_str()).get();
     if (music == nullptr) {
-        music = Resources::GetMusic(file.c_str());
+        music = Resources::GetMusic(file.c_str()).get();
 
         if(music == nullptr){ 
             std::cerr << "Erro ao carregar música: " << Mix_GetError() << std::endl;

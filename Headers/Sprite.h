@@ -32,7 +32,7 @@ private:
     int height;
     Vec2 scale;
     SDL_Rect clipRect;
-    SDL_Texture* texture;
+    std::shared_ptr<SDL_Texture> texture;
 };
 
 #endif

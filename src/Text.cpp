@@ -67,7 +67,7 @@ void Text::RemakeTexture() {
         texture = nullptr;
     }
 
-    font = Resources::GetFont(fontFile, fontSize);
+    font = Resources::GetFont(fontFile, fontSize).get();
     if (!font) {
         return;
     }

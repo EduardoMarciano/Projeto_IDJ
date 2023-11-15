@@ -21,10 +21,10 @@ void Sound::Stop(){
     }
 }
 void Sound::Open(std:: string file){
-    chunk = Resources::GetSound(file.c_str());
+    chunk = Resources::GetSound(file.c_str()).get();
 
     if (chunk == nullptr){
-        chunk = Resources::GetSound(file.c_str());
+        chunk = Resources::GetSound(file.c_str()).get();
         if(chunk == nullptr){
                    std::cout << "Could not open file: " << SDL_GetError() << std::endl;
         }
