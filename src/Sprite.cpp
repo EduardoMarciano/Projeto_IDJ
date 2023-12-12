@@ -7,7 +7,7 @@
 
 Sprite::Sprite(GameObject& associated) : Component(associated), texture(nullptr), scale(1,1), height(0), width(0){
 }
-Sprite::Sprite(const std::string file, GameObject& associated) : Sprite(associated) {
+Sprite::Sprite(const std::string file, GameObject& associated, int frameCount, int currentFrame,float frameTime , float timeElapsed) : Sprite(associated) {
     Open(file);
 }
 
@@ -71,7 +71,14 @@ void Sprite::SetScale(float scaleX, float scaleY){
     }
 }
 
-void Sprite::Update(float teste) {
+void Sprite::Update(float dt) {
+    timeElapsed += timeElapsed + dt;
+    if(timeElapsed > frameTime){
+        SetFrame(currentFrame+1);
+    }if(currentFrame > frameCount){
+        SetFrame(0);
+    }
+
 }
 
 bool Sprite::IsOpen() {
@@ -80,4 +87,17 @@ bool Sprite::IsOpen() {
 
 bool Sprite::Is( std::string type)  {
     return(type == "Sprite");
+}
+
+void Sprite::SetFrame(int frame){
+    this->currentFrame = frame;
+    SetClip(0, 0, GetWidth(), GetHeight());
+
+}
+void Sprite::SetFrameCount(int frameCount){
+
+}
+
+void Sprite::SetFrameTime(float frameTime){
+
 }

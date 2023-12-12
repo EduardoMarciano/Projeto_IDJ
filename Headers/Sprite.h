@@ -7,7 +7,7 @@ class Sprite : public Component {
 public:
     // Construtores e Destrutor
     Sprite(GameObject& associated);
-    Sprite(const std::string file, GameObject& associated);
+    Sprite(const std::string file, GameObject& associated, int frameCount = 1, int currentFrame = 0, float frameTime = 0 , float timeElapsed = 0);
     ~Sprite();
 
     // Métodos públicos
@@ -19,6 +19,11 @@ public:
     void Render(int x, int y);
     
     Vec2 GetScale ();
+    void SetFrame (int frame);
+    void SetFrameTime (float frameTime);
+    void SetFrameCount (int frameCount);
+
+
     void SetScale(float scaleX, float scaleY);
 
     //Metodos Herdados de Component
@@ -31,6 +36,12 @@ private:
     int width;
     int height;
     Vec2 scale;
+
+    int frameCount;
+    int currentFrame;
+    float frameTime;
+    float timeElapsed;
+
     SDL_Rect clipRect;
     std::shared_ptr<SDL_Texture> texture;
 };
